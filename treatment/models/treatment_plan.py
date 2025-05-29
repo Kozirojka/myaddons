@@ -11,7 +11,7 @@ class TreatmentPlan(models.Model):
     post_material_links = fields.Text(string='Post-treatment Material Links')
     module_progress = fields.Float(string="Progress (%)", compute='_compute_progress', store=True)
 
-    patient_id = fields.Many2One('patient', string='Patient', required=True, index=True)
+    patient_id = fields.Many2one('patient', string='Patient', required=True, index=True)
     module_ids = fields.One2many('treatment.module', 'treatment_plan_id', string='Modules')
 
 
