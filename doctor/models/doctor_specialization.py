@@ -1,6 +1,7 @@
 from odoo import models, fields
 
 
+
 class DoctorSpecialization(models.Model):
     _name = "doctor.specialization"
     _description = "Medical Specialization"
