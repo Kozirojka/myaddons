@@ -20,7 +20,5 @@ class TreatmentModule(models.Model):
     survey_ids = fields.Many2many('survey.survey', string='Surveys')
     status_id = fields.Many2one('treatment.module.status', string='Status', required=True)
 
-
-    # materials = fields.Many2many('materials', string='Materials')
     # session_ids = fields.One2many('therapy.session', 'treatment_plan_id', string='Sessions')
 
