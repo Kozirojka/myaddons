@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_therapy_exercise_library,access_therapy_exercise_library,model_therapy_exercise_library,base.group_user,1,1,1,1
+access_therapy_exercise_status,access_therapy_exercise_status,model_therapy_exercise_status,base.group_user,1,1,1,1
+access_therapy_exercise_case,access_therapy_exercise_case,model_therapy_exercise_case,base.group_user,1,1,1,1
+access_therapy_exercise_type,access_therapy_exercise_type,model_therapy_exercise_type,base.group_user,1,1,1,1
