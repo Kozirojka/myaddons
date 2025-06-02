@@ -3,34 +3,38 @@ import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
 
 export class PatientSnapshot extends Component {
-    static template = "doctor.PatientSnapshot";
-
-    setup() {
+    static template = "doctor.PatientSnapshot";    setup() {
         this.state = useState({
             partner: null,
             isLoading: true,
             error: null,
-            filter: "",
-            view: "kanban",
         });
 
         this.loadPartners();
     }
 
+    getPatientIdFromUrl() {
+        // Отримуємо ID з URL: /doctor/patient/123/treatment
+        const path = window.location.pathname;
+        const match = path.match(/\/doctor\/patient\/(\d+)\/treatment/);
+        return match ? parseInt(match[1]) : null;
+    }
+
     async loadPartners() {
-
         try {
-
             console.log("Loading partners...");
+            
+            const patientId = this.getPatientIdFromUrl();
+            if (!patientId) {
+                throw new Error('Patient ID not found in URL');
+            }
 
-            const result = await rpc('/patient/data/33');
+            const result = await rpc(`/patient/data/${patientId}`);
 
             console.log(result);
-
             console.log("Partners loaded successfully");
 
-
-            this.state.partners = result.partner;
+            this.state.partner = result.partner;
 
         } catch (error) {
             this.state.error = error.message;
@@ -38,9 +42,6 @@ export class PatientSnapshot extends Component {
             this.state.isLoading = false;
         }
 
-    }
-    onClick() {
-        this.state.clicked = true;
     }
 }
 

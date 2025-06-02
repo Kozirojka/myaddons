@@ -1,11 +1,28 @@
 <templates xml:space="preserve">
     <t t-name="doctor.PatientSnapshot" owl="1">
         <div class="alert alert-info">
-            <h4>Second component</h4>
-            <button class="btn btn-success" t-on-click="onClick">Click me</button>
-            <t t-if="state.clicked">
-                <p class="text-success">You clicked the button shit!</p>
-            </t>
+            <h4>Patient Snapshot Component</h4>
+            
+            <!-- Loading State -->
+            <div t-if="state.isLoading" class="text-center py-3">
+                <div class="spinner-border spinner-border-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <span class="ms-2">Loading patient data...</span>
+            </div>
+            
+            <!-- Error State -->
+            <div t-if="state.error" class="alert alert-danger" role="alert">
+                Error: <t t-esc="state.error"/>
+            </div>
+            
+            <!-- Success State -->
+            <div t-if="state.partner and !state.isLoading">
+                <p><strong>Patient ID:</strong> <t t-esc="state.partner.id"/></p>
+                <p><strong>Name:</strong> <t t-esc="state.partner.name"/></p>
+                <p t-if="state.partner.email"><strong>Email:</strong> <t t-esc="state.partner.email"/></p>
+                <p t-if="state.partner.phone"><strong>Phone:</strong> <t t-esc="state.partner.phone"/></p>
+            </div>
         </div>
     </t>
 </templates>
