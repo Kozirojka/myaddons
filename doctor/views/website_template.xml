@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<odoo>      
     <template id="doctor_page" name="Doctor Page">
         <t t-call="website.layout">
             <div class="container mt-5">
-                <h1>Doctor Page</h1>
-                <owl-component name="doctor.ExampleComponent" />
-
-                <owl-component name="doctor.PatientSnapshot" />
+                <h1>Doctor Page - Patient <t t-esc="patient_id"/></h1>
+                <owl-component name="doctor.PatientSnapshot"/>
             </div>
         </t>
     </template>
