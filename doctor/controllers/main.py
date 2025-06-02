@@ -5,3 +5,18 @@ class DoctorWebsite(http.Controller):
     @http.route(['/doctor/patient/<int:id>/treatment'], type='http', auth="public", website=True)
     def doctor_page(self, **kw):
         return request.render("doctor.doctor_page")
+
+    @http.route('/patient/data/<int:id>', type='json', auth="public", website=True)
+    def get_patient_data(self, id):
+
+
+        partner = request.env['res.partner'].sudo().browse(id)
+
+        return {
+            'patient': {
+                'id' : partner.id,
+                'name': partner.name,
+                'email': partner.email,
+                'phone': partner.phone
+            }
+        }
