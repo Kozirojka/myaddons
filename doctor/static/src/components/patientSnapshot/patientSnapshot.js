@@ -3,7 +3,9 @@ import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
 
 export class PatientSnapshot extends Component {
-    static template = "doctor.PatientSnapshot";    setup() {
+    static template = "doctor.PatientSnapshot";    
+    
+    setup() {
         this.state = useState({
             partner: null,
             isLoading: true,

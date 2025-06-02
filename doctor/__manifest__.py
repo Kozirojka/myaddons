@@ -8,7 +8,6 @@
     ],
     'assets': {
         'web.assets_frontend': [
-            'doctor/static/src/components/example/**/*',
             'doctor/static/src/components/patientSnapshot/**/*',
         ],
     },

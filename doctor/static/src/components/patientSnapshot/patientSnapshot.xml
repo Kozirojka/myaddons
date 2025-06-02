@@ -3,7 +3,6 @@
         <div class="alert alert-info">
             <h4>Patient Snapshot Component</h4>
             
-            <!-- Loading State -->
             <div t-if="state.isLoading" class="text-center py-3">
                 <div class="spinner-border spinner-border-sm" role="status">
                     <span class="visually-hidden">Loading...</span>
@@ -11,12 +10,10 @@
                 <span class="ms-2">Loading patient data...</span>
             </div>
             
-            <!-- Error State -->
             <div t-if="state.error" class="alert alert-danger" role="alert">
                 Error: <t t-esc="state.error"/>
             </div>
             
-            <!-- Success State -->
             <div t-if="state.partner and !state.isLoading">
                 <p><strong>Patient ID:</strong> <t t-esc="state.partner.id"/></p>
                 <p><strong>Name:</strong> <t t-esc="state.partner.name"/></p>
