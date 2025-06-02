@@ -17,6 +17,7 @@ class DoctorWebsite(http.Controller):
                 'id' : partner.id,
                 'name': partner.name,
                 'email': partner.email,
-                'phone': partner.phone
+                'phone': partner.phone,
+                'address': partner.contact_address_complete,
             }
         }

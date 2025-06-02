@@ -19,6 +19,7 @@
                 <p><strong>Name:</strong> <t t-esc="state.partner.name"/></p>
                 <p t-if="state.partner.email"><strong>Email:</strong> <t t-esc="state.partner.email"/></p>
                 <p t-if="state.partner.phone"><strong>Phone:</strong> <t t-esc="state.partner.phone"/></p>
+                <p t-if="state.partner.address"><strong>Address:</strong> <t t-esc="state.partner.address"/></p>
             </div>
         </div>
     </t>
