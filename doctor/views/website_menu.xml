@@ -1,0 +1,11 @@
+<odoo>
+    <data noupdate="1">
+        <record id="menu_doctor_page" model="website.menu">
+            <field name="name">Doctor</field>
+            <field name="url">/doctor-page</field>
+            <field name="parent_id" ref="website.main_menu" />
+            <field name="sequence" type="int">50</field>
+        </record>
+    </data>
+</odoo>
+  

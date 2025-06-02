@@ -14,7 +14,7 @@ class Doctor(models.Model):
         "doctor.specialization", string="Specialization", required=True
     )
     patient_ids = fields.Many2many(
-        "patient",  # модель пацієнта
+        "res.partner",  # модель пацієнта
         "doctor_patient_rel",
         "doctor_id",
         "patient_id",

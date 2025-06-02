@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="partner_listing_page" name="Partners">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <h1 class="mb-4">Our Partners</h1>
+                <owl-component name="partner_website_listing.PartnerListing"/>
+            </div>
+        </t>
+    </template>
+</odoo>

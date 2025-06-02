@@ -1,8 +1,17 @@
 {
     "name": "doctor",
     "version": "1.0",
-    "depends": ["base", "hr", "contacts"],
-    "data": [],
-    "installable": True,
-    "application": True,
+    'depends': ['base', 'website'],
+    'data': [
+        'views/website_template.xml',
+        'views/website_menu.xml'
+    ],
+    'assets': {
+        'web.assets_frontend': [
+            'doctor/static/src/components/example/**/*',
+        ],
+    },
+
+    'installable': True,
+    'application': False,
 }
