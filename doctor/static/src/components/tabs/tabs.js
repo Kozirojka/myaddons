@@ -1,10 +1,10 @@
 import { Component, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
-
+import { Tasks } from "./tasks/tasks";
 export class DoctorTabs extends Component {
     static template = "doctor.tabs";    
-
+    static components = { Tasks }; 
     setup() {
 
         console.log("DoctorTabs component initialized");

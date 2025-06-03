@@ -1,0 +1,20 @@
+<templates xml:space="preserve">
+    <t t-name="doctor.Tasks" owl="1">
+        <div class="dashboard-card tasks-dashboard-card" style="margin-top: 24px">
+            <div class="dashboard-card-header card-tasks">
+                <h3 class="mb-0">Daily Tasks</h3>
+            </div>
+        </div>
+
+
+        <div class="dashboard-card-body">
+            <div class="mb-3">     
+                <ul t-else="" class="list-group text-start mt-3">
+                    <t t-foreach="this.state.tasks" t-as="task" t-key="task.id">
+                        <Task task="task"/>
+                    </t>
+                </ul>
+            </div>
+        </div>
+    </t>
+</templates>

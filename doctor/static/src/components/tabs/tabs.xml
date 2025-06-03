@@ -63,7 +63,8 @@
 
                                     <div t-if="state.activeTreatmentTab === 'sessions'" class="content-panel">
                                         <h4><i class="fas fa-calendar-check me-2"></i>Task</h4>
-                                         
+                                        <Tasks/>
+                                        
                                     </div>
 
                                     <div t-if="state.activeTreatmentTab === 'materials'" class="content-panel">
