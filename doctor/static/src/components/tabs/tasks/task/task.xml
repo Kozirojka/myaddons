@@ -1,10 +1,6 @@
 <templates xml:space="preserve">
     <t t-name="doctor.Task" owl="1">
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-                <input class="form-check-input me-2" type="checkbox" t-att-checked="props.task.completed" t-att-id="'task-' + props.task.id" t-on-change="updateTaskProgress" />
-                <label t-att-for="'task-' + props.task.id" t-esc="props.task.description" />
-            </div>
             <div class="d-flex gap-2">
                <p>
                 <t t-esc="props.task.description"/>

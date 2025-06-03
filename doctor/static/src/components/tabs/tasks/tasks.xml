@@ -9,6 +9,13 @@
 
         <div class="dashboard-card-body">
             <div class="mb-3">     
+                <t t-if="this.state.tasks.length === 0">
+                    <div class="text-center py-4">
+                        <i class="fa fa-check-circle-o fa-2x mb-2 text-muted" />
+                        <h4 class="text-muted">No Tasks Found</h4>
+                        <p class="text-muted">Great job! You have no tasks for today.</p>
+                    </div>
+                </t>
                 <ul t-else="" class="list-group text-start mt-3">
                     <t t-foreach="this.state.tasks" t-as="task" t-key="task.id">
                         <Task task="task"/>

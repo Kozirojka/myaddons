@@ -8,3 +8,5 @@ const tasksData = [
     description: "Prepare therapy materials for Orest",
   },
 ]
+
+export default tasksData;

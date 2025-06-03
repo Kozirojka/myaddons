@@ -9,6 +9,8 @@ export class Tasks extends Component {
 
   setup() {
     console.log(tasksData);
+
+    console.log("h ello from Tasks component");
     this.state = useState({
       tasks: tasksData,
       loading: false,
