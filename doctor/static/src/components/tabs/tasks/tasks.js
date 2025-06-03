@@ -9,9 +9,7 @@ export class Tasks extends Component {
   static components = { Task };
 
   setup() {
-    console.log(tasksData);
 
-    console.log("h ello from Tasks component");
     this.state = useState({
       tasks: tasksData,
       loading: false,
@@ -22,7 +20,6 @@ export class Tasks extends Component {
   }
 
    getPatientIdFromUrl() {
-        // Отримуємо ID з URL: /doctor/patient/123/treatment
         const path = window.location.pathname;
         const match = path.match(/\/doctor\/patient\/(\d+)\/treatment/);
         return match ? parseInt(match[1]) : null;
