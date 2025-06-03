@@ -5,6 +5,7 @@ import { rpc } from "@web/core/network/rpc";
 export class PatientSnapshot extends Component {
     static template = "doctor.PatientSnapshot";    
     
+    // потрібно вирішити як можна взяти ID пацієнта без костилів
     setup() {
         this.state = useState({
             partner: null,
@@ -20,7 +21,7 @@ export class PatientSnapshot extends Component {
         const path = window.location.pathname;
         const match = path.match(/\/doctor\/patient\/(\d+)\/treatment/);
         return match ? parseInt(match[1]) : null;
-    }
+    }   
 
     async loadPartners() {
         try {

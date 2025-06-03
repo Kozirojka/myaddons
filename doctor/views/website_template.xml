@@ -5,6 +5,8 @@
             <div class="container mt-5">
                 <h1>Doctor Page - Patient <t t-esc="patient_id"/></h1>
                 <owl-component name="doctor.PatientSnapshot"/>
+
+                
             </div>
         </t>
     </template>
