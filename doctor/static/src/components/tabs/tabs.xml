@@ -1,0 +1,10 @@
+<templates xml:space="preserve">
+    <t t-name="doctor.tabs" owl="1">
+        <h4>Patient Snapshot Component 22222222</h4>
+            
+            
+        <h2 class="mt-4">Patient Tabs</h2>  
+    </t>
+</templates>
+
+

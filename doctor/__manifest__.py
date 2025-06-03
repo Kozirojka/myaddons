@@ -9,6 +9,7 @@
     'assets': {
         'web.assets_frontend': [
             'doctor/static/src/components/patientSnapshot/**/*',
+            'doctor/static/src/components/tabs/**/*',
         ],
     },
 
