@@ -3,7 +3,7 @@ import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
 
 export class PatientSnapshot extends Component {
-    static template = "doctor.PatientSnapshot";    
+    static template = "doctor.patientSnapshot";    
     
     // потрібно вирішити як можна взяти ID пацієнта без костилів
     setup() {
@@ -50,4 +50,4 @@ export class PatientSnapshot extends Component {
 
 registry
     .category("public_components")
-    .add("doctor.PatientSnapshot", PatientSnapshot);
+    .add("doctor.patientSnapshot", PatientSnapshot);

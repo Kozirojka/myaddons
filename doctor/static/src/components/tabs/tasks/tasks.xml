@@ -1,0 +1,26 @@
+<templates xml:space="preserve">
+    <t t-name="doctor.tasks" owl="1">
+        <div class="patient-tabs-container mt-4">
+            <div t-if="state.isLoading" class="text-center py-4">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading patient data...</p>
+            </div>
+
+            <div t-if="state.error" class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Error: <t t-esc="state.error"/>
+            </div>
+
+
+            <ul t-else="" class="list-group text-start mt-3">
+                <t t-foreach="this.state.tasks" t-as="task" t-key="task.id">
+                    <Task task="task"/>
+                </t>
+            </ul>
+
+
+        <div>
+    </t>    
+</templates>
