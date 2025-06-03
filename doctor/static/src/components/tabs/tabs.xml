@@ -1,0 +1,100 @@
+<templates xml:space="preserve">
+    <t t-name="doctor.tabs" owl="1">
+        <div class="patient-tabs-container mt-4">
+            <div t-if="state.isLoading" class="text-center py-4">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading patient data...</p>
+            </div>
+
+            <div t-if="state.error" class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Error: <t t-esc="state.error"/>
+            </div>
+
+            <div t-if="!state.isLoading and !state.error">
+                <div class="horizontal-tabs-container">
+                    <ul class="nav nav-tabs nav-tabs-horizontal" role="tablist">
+                        <li t-foreach="tabsConfig.horizontal" t-as="hTab" t-key="hTab.id" class="nav-item">
+                            <button 
+                                class="nav-link"
+                                t-att-class="state.activeHorizontalTab === hTab.id ? 'active' : ''"
+                                t-on-click="() => this.setActiveHorizontalTab(hTab.id)"
+                                type="button">
+                                <i t-att-class="hTab.icon + ' me-2'"></i>
+                                <t t-esc="hTab.label"/>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="horizontal-tab-content">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="vertical-tabs-container">
+                                <div class="nav flex-column nav-pills" role="tablist">
+                                    <button 
+                                        t-foreach="currentVerticalTabs" 
+                                        t-as="vTab" 
+                                        t-key="vTab.id"
+                                        class="nav-link text-start mb-2"
+                                        t-att-class="activeVerticalTab === vTab.id ? 'active' : ''"
+                                        t-on-click="state.activeHorizontalTab === 'treatment' ? 
+                                                   () => this.setActiveTreatmentTab(vTab.id) : 
+                                                   () => this.setActiveHistoryTab(vTab.id)"
+                                        type="button">
+                                        <i t-att-class="vTab.icon + ' me-2'"></i>
+                                        <t t-esc="vTab.label"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <div class="tab-content-container">
+                                
+                                <div t-if="state.activeHorizontalTab === 'treatment'">
+                                    
+                                    <div t-if="state.activeTreatmentTab === 'modules'" class="content-panel">
+                                        <h4><i class="fas fa-puzzle-piece me-2"></i>Treatment Modules</h4>
+                                        
+                                    </div>
+
+                                    <div t-if="state.activeTreatmentTab === 'sessions'" class="content-panel">
+                                        <h4><i class="fas fa-calendar-check me-2"></i>Task</h4>
+                                         
+                                    </div>
+
+                                    <div t-if="state.activeTreatmentTab === 'materials'" class="content-panel">
+                                        <h4><i class="fas fa-book me-2"></i>Materials</h4>
+    
+                                    </div>
+                                </div>
+
+                                <div t-if="state.activeHorizontalTab === 'history'">
+                                    
+                                    <div t-if="state.activeHistoryTab === 'medical'" class="content-panel">
+                                        <h4><i class="fas fa-file-medical me-2"></i>Medical Records</h4>
+                                         
+                                    </div>
+
+                                    <div t-if="state.activeHistoryTab === 'appointments'" class="content-panel">
+                                        <h4><i class="fas fa-calendar-alt me-2"></i>Appointments</h4>
+                                         
+                                    </div>
+
+                                    <div t-if="state.activeHistoryTab === 'documents'" class="content-panel">
+                                        <h4><i class="fas fa-folder-open me-2"></i>Documents</h4>
+                                         
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
