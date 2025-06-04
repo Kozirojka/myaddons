@@ -6,3 +6,5 @@ class Materials(models.Model):
 
     link_id = fields.Char(string='Link ID', required=True)
     type = fields.Char(string='Type')
+
+    material_modules = fields.One2many('material.module', 'material_id', string='Material Modules')
