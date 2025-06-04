@@ -1,0 +1,112 @@
+<templates xml:space="preserve">
+    <t t-name="doctor.tabs" owl="1">
+        <div class="tabs-container">
+            <div t-if="state.isLoading" class="text-center py-4">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading patient data...</p>
+            </div>
+
+            <div t-if="state.error" class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Error: <t t-esc="state.error"/>
+            </div>
+
+            <div t-if="!state.isLoading and !state.error">
+                <!-- Horizontal Tabs -->
+                <div class="horizontal-tabs">
+                    <button 
+                        t-foreach="tabsConfig.horizontal" 
+                        t-as="hTab" 
+                        t-key="hTab.id"
+                        class="horizontal-tab"
+                        t-att-class="(state.activeHorizontalTab === hTab.id ? 'active' : '')"
+                        t-on-click="() => this.setActiveHorizontalTab(hTab.id)"
+                        type="button">
+                        <i t-att-class="hTab.icon"></i>
+                        <t t-esc="hTab.label"/>
+                    </button>
+                    <div class="flex-grow-1"></div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="content-area">
+                    <!-- Vertical Tabs -->
+                    <div class="vertical-tabs">
+                        <button 
+                            t-foreach="currentVerticalTabs" 
+                            t-as="vTab" 
+                            t-key="vTab.id"
+                            class="vertical-tab"
+                            t-att-class="activeVerticalTab === vTab.id ? 'active' : ''"
+                            t-on-click="state.activeHorizontalTab === 'treatment' ? 
+                                       () => this.setActiveTreatmentTab(vTab.id) : 
+                                       () => this.setActiveHistoryTab(vTab.id)"
+                            type="button">
+                            <i t-att-class="vTab.icon"></i>
+                            <t t-esc="vTab.label"/>
+                        </button>
+                        
+                        <!-- End Module Button (только для treatment) -->
+                        <div t-if="state.activeHorizontalTab === 'treatment'" class="end-module-tab">
+                            <i class="fas fa-stop-circle"></i>
+                            End Module
+                        </div>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content active">
+                        <div t-if="state.activeHorizontalTab === 'treatment'" id="treatment-module">
+                            
+                            <div t-if="state.activeTreatmentTab === 'modules'" class="module-content active">
+                                <CurrentSession/>
+                            </div>
+
+                            <div t-if="state.activeTreatmentTab === 'sessions'" class="module-content active">
+                                <Tasks/>
+                            </div>
+
+                            <div t-if="state.activeTreatmentTab === 'materials'" class="module-content active">
+                                
+                            </div>
+                        </div>
+
+                        <div t-if="state.activeHorizontalTab === 'history'">
+                            
+                            <div t-if="state.activeHistoryTab === 'medical'" class="module-content active">
+                                <h2 class="content-title">Medical Records</h2>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5>Patient Medical History</h5>
+                                        <p>Review comprehensive medical records and history.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div t-if="state.activeHistoryTab === 'appointments'" class="module-content active">
+                                <h2 class="content-title">Appointments History</h2>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5>Past Appointments</h5>
+                                        <p>View appointment history and scheduling details.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div t-if="state.activeHistoryTab === 'documents'" class="module-content active">
+                                <h2 class="content-title">Patient Documents</h2>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5>Document Library</h5>
+                                        <p>Access patient documents and files.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -13,7 +13,7 @@ class TreatmentPlan(models.Model):
 
     patient_id = fields.Many2one('patient', string='Patient', required=True, index=True)
     module_ids = fields.One2many('treatment.module', 'treatment_plan_id', string='Modules')
-
+    
 
     # patient_id = fields.Many2one('patient', string='Patient', required=True, index=True)
 

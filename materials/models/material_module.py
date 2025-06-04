@@ -14,10 +14,3 @@ class MaterialModule(models.Model):
         required=True,
         ondelete='cascade'
     )
-
-    treatment_module_id = fields.Many2one(
-        'treatment.module',
-        string='Treatment Plan',
-        required=True,
-        ondelete='cascade'
-    )

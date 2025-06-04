@@ -3,8 +3,9 @@ import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
 
 export class PatientSnapshot extends Component {
-    static template = "doctor.PatientSnapshot";    
+    static template = "doctor.patientSnapshot";    
     
+    // потрібно вирішити як можна взяти ID пацієнта без костилів
     setup() {
         this.state = useState({
             partner: null,
@@ -20,7 +21,7 @@ export class PatientSnapshot extends Component {
         const path = window.location.pathname;
         const match = path.match(/\/doctor\/patient\/(\d+)\/treatment/);
         return match ? parseInt(match[1]) : null;
-    }
+    }   
 
     async loadPartners() {
         try {
@@ -49,4 +50,4 @@ export class PatientSnapshot extends Component {
 
 registry
     .category("public_components")
-    .add("doctor.PatientSnapshot", PatientSnapshot);
+    .add("doctor.patientSnapshot", PatientSnapshot);

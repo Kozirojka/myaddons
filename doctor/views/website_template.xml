@@ -4,7 +4,8 @@
         <t t-call="website.layout">
             <div class="container mt-5">
                 <h1>Doctor Page - Patient <t t-esc="patient_id"/></h1>
-                <owl-component name="doctor.PatientSnapshot"/>
+                <owl-component name="doctor.patientSnapshot"/>
+                <owl-component name="doctor.tabs"/>
             </div>
         </t>
     </template>

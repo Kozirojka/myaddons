@@ -21,3 +21,31 @@ class DoctorWebsite(http.Controller):
                 'address': partner.contact_address_complete,
             }
         }
+    
+    @http.route('/doctor/patient/data/<int:id>/tasks', type='json', auth="public", website=True)
+    def get_test_data(self, id):
+
+        patient = request.env['patient'].sudo().browse(1)
+        if not patient:
+                return {'error': 'Patient not found'}
+
+        treatment_plans = request.env['treatment.plan'].sudo().search([('patient_id', '=', 1)])
+
+        treatment_modules = request.env['treatment.module'].sudo().search([('treatment_plan_id', '=', 1)])
+
+        exercise_cases = request.env['therapy.exercise.case'].sudo().search([('treatment_module_id', '=', 1)])
+
+        return {
+            'exercise_cases': [
+                {
+                 'id': case.id, 
+                 'name': case.exercises_id.description,
+                 'status': case.exercises_status_id.name,
+                }
+                for case in exercise_cases
+            ]
+        }
+    
+    # @http.route('/doctor/patient/data/<int:id>/tasks', type='json', auth="public", website=True)
+    # def get_current_session_data(self, id):
+        

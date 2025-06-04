@@ -1,0 +1,276 @@
+// Фіолетова колірна палітра
+$primary-purple: #7c7bad;
+$light-purple: #9b8dc4;
+$pale-purple: #e8e1f5;
+$ultra-light-purple: #f5f3ff;
+$dark-purple: #6c5b7b;
+$darker-purple: #5d4a6b;
+
+// Червоні кольори для end-module
+$danger-red: #dc3545;
+
+.tabs-container {
+    width: 100%;
+    margin: 0 auto;
+    background: #ffffff;
+
+    /* Horizontal Tabs */
+    .horizontal-tabs {
+        display: flex;
+        border-bottom: 2px solid $pale-purple;
+        padding: 0 20px;
+        align-items: center;
+        background: #ffffff;
+    }
+
+    .horizontal-tab {
+        border: none;
+        color: $primary-purple;
+        font-weight: 500;
+        padding: 1rem 2rem;
+        background-color: $ultra-light-purple;
+        margin-right: 3px;
+        border-radius: 4px 4px 0 0;
+        font-size: 1.05rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+
+        .shortcut {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 12px;
+            color: #999;
+        }        &:hover {
+            background-color: $pale-purple;
+            border-bottom: 3px solid $light-purple;
+        }
+
+        &.active {
+            color: $primary-purple;
+            background-color: $pale-purple;
+            border-bottom: 5px solid $primary-purple;
+        }
+    }
+
+    .flex-grow-1 {
+        flex-grow: 1;
+    }
+
+    /* Content Area */
+    .content-area {
+        display: flex;
+        min-height: 500px;
+        position: relative;
+        width: 100%;
+        background: #ffffff;
+        box-shadow: 0 4px 12px rgba(124, 123, 173, 0.1);
+    }
+
+    /* Vertical Tabs */
+    .vertical-tabs {
+        width: 250px;
+        min-width: 250px;
+        padding: 20px 0;
+        border-right: 1px solid $pale-purple;
+        flex-shrink: 0;
+        background: #ffffff;
+    }
+
+    .vertical-tab {
+        display: block;
+        width: 100%;
+        padding: 15px 25px;
+        text-align: left;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 14px;
+        color: $primary-purple;
+        transition: all 0.3s ease;
+        margin: 5px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:hover {
+            color: $dark-purple;
+            background: $ultra-light-purple;
+        }
+
+        &.active {
+            color: $primary-purple;
+            border-left: 3px solid $primary-purple;
+            background: rgba(124, 123, 173, 0.05);
+            border: 1px solid $primary-purple;
+            border-left: 3px solid $primary-purple;
+            border-radius: 4px;
+        }
+
+        i {
+            margin-right: 8px;
+            width: 16px;
+        }
+    }
+
+    .end-module-tab {
+        width: calc(100% - 40px);
+        padding: 12px 20px;
+        text-align: center;
+        background: white;
+        cursor: pointer;
+        font-size: 14px;
+        color: $danger-red;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border: 2px solid $danger-red;
+        border-radius: 8px;
+        margin: 20px;
+        box-shadow: 0 2px 4px rgba(220, 53, 69, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            background-color: $danger-red;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+
+        i {
+            margin-right: 8px;
+        }
+    }
+
+    /* Content */
+    .tab-content {
+        display: none;
+        padding: 30px;
+        flex-grow: 1;
+        width: calc(100% - 250px);
+        overflow-x: auto;
+
+        &.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+    }
+
+    .module-content {
+        display: none;
+        width: 100%;
+
+        &.active {
+            display: block;
+        }
+    }    .content-title {
+        color: $primary-purple;
+        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    // General card styles
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(124, 123, 173, 0.08);
+        transition: all 0.3s ease;
+        background: #ffffff;
+
+        &:hover {
+            box-shadow: 0 4px 16px rgba(124, 123, 173, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card-body {
+            padding: 20px;
+
+            h5 {
+                color: $primary-purple;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            p {
+                color: #666;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    // Loading & Error States
+    .spinner-border {
+        width: 2rem;
+        height: 2rem;
+        color: $primary-purple;
+    }
+
+    .alert {
+        border-radius: 8px;
+        border: none;
+        box-shadow: 0 2px 4px rgba(124, 123, 173, 0.1);
+    }
+}
+
+// Animations
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .tabs-container {
+        .horizontal-tabs {
+            flex-wrap: wrap;
+            padding: 10px;
+
+            .horizontal-tab {
+                margin-bottom: 5px;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        .content-area {
+            flex-direction: column;
+
+            .vertical-tabs {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid $pale-purple;
+                padding: 15px 0;
+
+                .vertical-tab {
+                    display: inline-block;
+                    width: auto;
+                    margin-right: 10px;
+                    padding: 10px 15px;
+                }
+
+                .end-module-tab {
+                    width: auto;
+                    margin: 10px;
+                }
+            }
+
+            .tab-content {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    }
+}

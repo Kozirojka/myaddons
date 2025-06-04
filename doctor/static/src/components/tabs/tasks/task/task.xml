@@ -1,0 +1,49 @@
+<templates xml:space="preserve">
+    <t t-name="doctor.Task" owl="1">
+        <li class="list-group-item d-flex">
+            <div class="flex-grow-1 ms-3">
+                <div class="task-header">
+                    <h5 class="task-title">
+                        <t t-esc="props.task.name"/>
+                    </h5>
+                    <button class="comment-btn add-comment-btn" t-att-data-task-id="props.task.id" t-on-click="toggleCommentForm">
+                        <i class="bi bi-chat-left-text"></i> Add Comment
+                    </button>
+                </div>
+                <p class="task-description">
+                    <t t-esc="props.task.description || 'Daily 15-minute breathing exercises'"/>
+                </p>
+
+                <p class="task-description">
+                    <t t-esc="props.task.status"/>
+                </p>
+
+
+                <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-pj5wGVEUnvpp96LvX1m1Of-laOrd7ljh1A&amp;s" 
+                     class="task-image" 
+                     alt="Task illustration" 
+                     loading="lazy"/> -->
+
+                <div class="comment-form" t-att-id="'comment-form-' + props.task.id" t-att-style="state.showCommentForm ? '' : 'display: none'">
+                    <form class="task-comment-form" t-att-data-task-id="props.task.id" t-on-submit="saveComment">
+                        <div class="mb-2">
+                            <label class="form-label small">Doctor's comment:</label>
+                            <textarea class="form-control" 
+                                    rows="2" 
+                                    placeholder="Add your professional observations..."
+                                    t-model="state.commentText"></textarea>
+                        </div>
+                        <div class="text-end">
+                            <button type="button" class="comment-btn me-2 cancel-comment-btn" t-on-click="cancelComment">
+                                Cancel
+                            </button>
+                            <button type="submit" class="comment-btn">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </li>
+    </t>
+</templates>
