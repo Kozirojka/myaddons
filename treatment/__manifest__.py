@@ -4,7 +4,7 @@
     'summary': 'Manages treatment plans and modules',
     'category': 'Health',
     'author': 'Nazar Tarchanyn',
-    'depends': ['base', 'hr', 'survey', 'exercise', 'materials'],
+    'depends': ['base', 'hr', 'survey', 'exercise'],
     'data': [],
     'installable': True,
     'application': True,

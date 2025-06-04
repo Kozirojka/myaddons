@@ -15,5 +15,5 @@ class TreatmentModuleLibrary(models.Model):
 
     # materials = fields.Many2many('materials', string='Recommended Materials')
 
-    child_materials = fields.Many2many('material.module', "treatment_library_child_rel", "treatment_module_id", "matirial_id")
-    parent_materials = fields.Many2many('material.module', "treatment_library_parent_rel", "treatment_module_id", "matirial_id")
+    # child_materials = fields.Many2many('material.module', "treatment_library_child_rel", "treatment_module_id", "matirial_id")
+    # parent_materials = fields.Many2many('material.module', "treatment_library_parent_rel", "treatment_module_id", "matirial_id")

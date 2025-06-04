@@ -20,9 +20,9 @@ class TreatmentModule(models.Model):
     survey_ids = fields.Many2many('survey.survey', string='Surveys')
     status_id = fields.Many2one('treatment.module.status', string='Status', required=True)
 
-    child_materials = fields.One2many('material.module', string='child materials')
-    # parent_materials = fields.Many2many('material.module', "treatment_module_parent_rel", "treatment_id", "material_id", string='child materials')
+    # child_materials = fields.One2many('material.module', 'treatment_module_id', string='Child Materials')
+    # parent_materials = fields.One2many('material.module', 'treatment_module_id', string='Parent Materials')
     # parent_exercises = fields.Many2many('therapy.exercise.library', "treatment_module_exercise_parent_rel", "treatment_id", string='child materials')    
-    # child_exercises = fields.Many2many('therapy.exercise.library', "treatment_module_exercise_child_rel", "treatment_id", string='child materials')    
-    # session_ids = fields.One2many('therapy.session', 'treatment_plan_id', string='Sessions')
+    child_exercises = fields.Many2many('therapy.exercise.library', "treatment_module_exercise_child_rel", "treatment_module_id", "therapy_exercise_library_id", string='child materials')    
 
+        
