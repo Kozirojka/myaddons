@@ -8,9 +8,9 @@ class MaterialModule(models.Model):
     comments = fields.Text(string='Comments')
     status_id = fields.Many2one('materials.status', string='Status')
     
-    # material_id = fields.Many2one(
-    #     'materials',
-    #     string='Material',
-    #     required=True,
-    #     ondelete='cascade'
-    # )
+    treatment_module_id = fields.Many2one(
+        'treatment.module',
+        string='treatment module',
+        required=True,
+        ondelete='cascade'
+    )
