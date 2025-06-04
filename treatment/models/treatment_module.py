@@ -22,7 +22,7 @@ class TreatmentModule(models.Model):
 
     # child_materials = fields.One2many('material.module', 'treatment_module_id', string='Child Materials')
     # parent_materials = fields.One2many('material.module', 'treatment_module_id', string='Parent Materials')
-    # parent_exercises = fields.Many2many('therapy.exercise.library', "treatment_module_exercise_parent_rel", "treatment_id", string='child materials')    
+    parent_exercises = fields.Many2many('therapy.exercise.library', "treatment_module_exercise_parent_rel", "treatment_module_id", "therapy_exercise_library_id", string='child materials')    
     child_exercises = fields.Many2many('therapy.exercise.library', "treatment_module_exercise_child_rel", "treatment_module_id", "therapy_exercise_library_id", string='child materials')    
 
         
