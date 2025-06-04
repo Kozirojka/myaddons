@@ -60,7 +60,7 @@
                         <div t-if="state.activeHorizontalTab === 'treatment'" id="treatment-module">
                             
                             <div t-if="state.activeTreatmentTab === 'modules'" class="module-content active">
-                                
+                                <CurrentSession/>
                             </div>
 
                             <div t-if="state.activeTreatmentTab === 'sessions'" class="module-content active">
@@ -71,7 +71,7 @@
                                 
                             </div>
                         </div>
-                        
+
                         <div t-if="state.activeHorizontalTab === 'history'">
                             
                             <div t-if="state.activeHistoryTab === 'medical'" class="module-content active">

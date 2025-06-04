@@ -6,5 +6,5 @@ class Session(models.Model):
 
     calendar_id = fields.Many2one('calendar.event', string='Calendar ID')
     notes = fields.Text(string='Notes')
-    plan = fields.Text(string='Plan')
+    tretment_module_id = fields.Many2one('treatment_module', string='treatment module')
     status_id = fields.Many2one('therapy.session.status', string='Status')

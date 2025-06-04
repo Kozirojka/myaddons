@@ -1,6 +1,5 @@
 <templates xml:space="preserve">
     <t t-name="doctor.patientSnapshot" owl="1">
-            <h4>Patient Snapshot Component</h4>
             
             <div t-if="state.isLoading" class="text-center py-3">
                 <div class="spinner-border spinner-border-sm" role="status">

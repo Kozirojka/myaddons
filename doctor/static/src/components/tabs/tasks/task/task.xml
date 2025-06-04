@@ -14,6 +14,11 @@
                     <t t-esc="props.task.description || 'Daily 15-minute breathing exercises'"/>
                 </p>
 
+                <p class="task-description">
+                    <t t-esc="props.task.status"/>
+                </p>
+
+
                 <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-pj5wGVEUnvpp96LvX1m1Of-laOrd7ljh1A&amp;s" 
                      class="task-image" 
                      alt="Task illustration" 

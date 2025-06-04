@@ -45,3 +45,7 @@ class DoctorWebsite(http.Controller):
                 for case in exercise_cases
             ]
         }
+    
+    # @http.route('/doctor/patient/data/<int:id>/tasks', type='json', auth="public", website=True)
+    # def get_current_session_data(self, id):
+        
