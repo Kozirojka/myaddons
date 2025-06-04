@@ -21,12 +21,11 @@
                         t-as="hTab" 
                         t-key="hTab.id"
                         class="horizontal-tab"
-                        t-att-class="(state.activeHorizontalTab === hTab.id ? 'active' : '') + (hTab.id === 'treatment' ? ' treatment-plan' : '')"
+                        t-att-class="(state.activeHorizontalTab === hTab.id ? 'active' : '')"
                         t-on-click="() => this.setActiveHorizontalTab(hTab.id)"
                         type="button">
                         <i t-att-class="hTab.icon"></i>
                         <t t-esc="hTab.label"/>
-                        <span class="shortcut">Ctrl+<t t-esc="hTab_index + 1"/></span>
                     </button>
                     <div class="flex-grow-1"></div>
                 </div>
@@ -61,31 +60,18 @@
                         <div t-if="state.activeHorizontalTab === 'treatment'" id="treatment-module">
                             
                             <div t-if="state.activeTreatmentTab === 'modules'" class="module-content active">
-                                <h2 class="content-title">Treatment Modules</h2>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5>Active Treatment Plan</h5>
-                                        <p>Configure and manage treatment modules for the patient.</p>
-                                    </div>
-                                </div>
+                                
                             </div>
 
                             <div t-if="state.activeTreatmentTab === 'sessions'" class="module-content active">
-                                <h2 class="content-title">Tasks &amp; Sessions</h2>
                                 <Tasks/>
                             </div>
 
                             <div t-if="state.activeTreatmentTab === 'materials'" class="module-content active">
-                                <h2 class="content-title">Treatment Materials</h2>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5>Educational Materials</h5>
-                                        <p>Access treatment materials and resources.</p>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
-
+                        
                         <div t-if="state.activeHorizontalTab === 'history'">
                             
                             <div t-if="state.activeHistoryTab === 'medical'" class="module-content active">

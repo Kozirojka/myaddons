@@ -37,7 +37,11 @@ class DoctorWebsite(http.Controller):
 
         return {
             'exercise_cases': [
-                {'id': case.id, 'name': case.exercises_id.description,}
+                {
+                 'id': case.id, 
+                 'name': case.exercises_id.description,
+                 'status': case.exercises_status_id.name,
+                }
                 for case in exercise_cases
             ]
         }

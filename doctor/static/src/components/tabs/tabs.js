@@ -28,7 +28,7 @@ export class DoctorTabs extends Component {
             horizontal: [
                 {
                     id: 'treatment',
-                    label: 'Treatment Plan',
+                    label: 'Treatment',
                     icon: 'fas fa-stethoscope'
                 },
                 {
@@ -39,9 +39,9 @@ export class DoctorTabs extends Component {
             ],
             vertical: {
                 treatment: [
-                    { id: 'modules', label: 'Treatment Modules', icon: 'fas fa-puzzle-piece' },
-                    { id: 'sessions', label: 'Sessions', icon: 'fas fa-calendar-check' },
-                    { id: 'materials', label: 'Materials', icon: 'fas fa-book' }
+                    { id: 'modules', label: 'Current session', icon: 'fas fa-puzzle-piece' },
+                    { id: 'sessions', label: 'Tasks', icon: 'fas fa-calendar-check' },
+                    { id: 'materials', label: 'Session history', icon: 'fas fa-book' }
                 ],
                 history: [
                     { id: 'medical', label: 'Medical Records', icon: 'fas fa-file-medical' },
