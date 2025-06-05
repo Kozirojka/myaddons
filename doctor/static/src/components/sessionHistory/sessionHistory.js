@@ -47,13 +47,11 @@ export class SessionHistory extends Component {
         }
     }
 
-    // Перемикання на детальний перегляд сесії
     showSessionDetails(session) {
         this.state.selectedSession = session;
         this.state.currentView = "details";
     }
 
-    // Повернення до списку сесій
     backToPreview() {
         this.state.currentView = "preview";
         this.state.selectedSession = null;

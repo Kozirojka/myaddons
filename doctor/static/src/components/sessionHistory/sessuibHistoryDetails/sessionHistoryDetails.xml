@@ -1,6 +1,5 @@
 <templates xml:space="preserve">
     <t t-name="doctor.sessionHistoryDetails" owl="1">
-        <div class="session-history-details">
             <!-- Header with Back Button -->
             <div class="d-flex align-items-center mb-4">
                 <button class="btn btn-outline-secondary me-3" t-on-click="() => this.onBackClick()">
@@ -164,6 +163,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </t>
 </templates>

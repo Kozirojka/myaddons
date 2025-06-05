@@ -9,7 +9,6 @@ export class SessionHistoryDetails extends Component {
         onBack: Function,
     };
 
-    // Форматування дати та часу
     formatDateTime(dateString) {
         if (!dateString) return "Not scheduled";
         const date = new Date(dateString);
@@ -23,7 +22,6 @@ export class SessionHistoryDetails extends Component {
         });
     }
 
-    // Отримання CSS класу для статусу сесії
     getSessionStatusClass(status) {
         const statusClasses = {
             'Completed': 'bg-success',
@@ -35,7 +33,6 @@ export class SessionHistoryDetails extends Component {
         return statusClasses[status] || 'bg-secondary';
     }
 
-    // Отримання CSS класу для статусу зустрічі
     getAppointmentStatusClass(status) {
         const statusClasses = {
             'Completed': 'text-success',
@@ -47,12 +44,10 @@ export class SessionHistoryDetails extends Component {
         return statusClasses[status] || 'text-muted';
     }
 
-    // Обробка кнопки "Назад"
     onBackClick() {
         this.props.onBack();
     }
 
-    // Розрахунок тривалості сесії
     calculateDuration() {
         const { calendar_appointment_start, calendar_appointment_end } = this.props.session;
         if (!calendar_appointment_start || !calendar_appointment_end) {

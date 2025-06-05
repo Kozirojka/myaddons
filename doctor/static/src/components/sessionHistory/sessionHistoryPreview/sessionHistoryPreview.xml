@@ -1,14 +1,10 @@
 <templates xml:space="preserve">
     <t t-name="doctor.sessionHistoryPreview" owl="1">
-        <div class="session-history-preview">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3 class="mb-0">
                     <i class="fas fa-history me-2 text-primary"></i>
                     Session History
                 </h3>
-                <span class="badge bg-light text-dark fs-6">
-                    <t t-esc="props.sessionData.length"/> sessions
-                </span>
             </div>
 
             <!-- Empty State -->
@@ -80,6 +76,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </t>
 </templates>

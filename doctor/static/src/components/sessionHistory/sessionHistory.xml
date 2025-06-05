@@ -7,7 +7,6 @@
                 <p class="mt-2 text-muted">Loading session history...</p>
             </div>
 
-            <!-- Error State -->
             <div t-if="state.error" class="alert alert-danger" role="alert">
                 <i class="fas fa-exclamation-triangle me-2"></i>
                 <strong>Error:</strong> <t t-esc="state.error"/>
@@ -17,14 +16,13 @@
             </div>
 
             <div t-if="!state.isLoading and !state.error">
-                <!-- Preview Component (список карточок) -->sessions
+                <!-- Preview Component (список карточок) --> 
                 <SessionHistoryPreview 
                     t-if="state.currentView === 'preview'"
                     sessionData="state.sessionData"
                     onSessionSelect="(session) => this.showSessionDetails(session)"
                 />
 
-                <!-- Details Component (деталі сесії) -->
                 <SessionHistoryDetails 
                     t-if="state.currentView === 'details'"
                     session="state.selectedSession"
