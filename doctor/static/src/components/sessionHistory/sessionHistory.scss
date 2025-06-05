@@ -1,0 +1,84 @@
+.session-history-container {
+    padding: 20px;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+.session-history-preview {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.session-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid #e9ecef;
+}
+
+.session-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    border-color: #007bff;
+}
+
+.session-card .card-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #dee2e6;
+}
+
+.session-card .card-footer {
+    border-top: 1px solid #dee2e6;
+    background: #f8f9fa;
+}
+
+.session-history-details {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-item label {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.notes-content pre {
+    font-size: 0.875rem;
+    color: #495057;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    line-height: 1.5;
+}
+
+.appointment-info .info-item {
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+/* Status badges */
+.badge.bg-success { background-color: #28a745 !important; }
+.badge.bg-danger { background-color: #dc3545 !important; }
+.badge.bg-primary { background-color: #007bff !important; }
+.badge.bg-info { background-color: #17a2b8 !important; }
+.badge.bg-secondary { background-color: #6c757d !important; }
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .session-history-container {
+        padding: 10px;
+    }
+    
+    .session-history-preview,
+    .session-history-details {
+        padding: 15px;
+    }
+    
+    .session-card {
+        margin-bottom: 15px;
+    }
+}

@@ -1,6 +1,85 @@
 <templates xml:space="preserve">
     <t t-name="doctor.sessionHistoryPreview" owl="1">
-        <p>Pewview</p>
+        <div class="session-history-preview">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mb-0">
+                    <i class="fas fa-history me-2 text-primary"></i>
+                    Session History
+                </h3>
+                <span class="badge bg-light text-dark fs-6">
+                    <t t-esc="props.sessionData.length"/> sessions
+                </span>
+            </div>
 
+            <!-- Empty State -->
+            <div t-if="props.sessionData.length === 0" class="text-center py-5">
+                <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                <h4 class="text-muted">No sessions found</h4>
+                <p class="text-muted">No completed or cancelled sessions available for this patient.</p>
+            </div>
+
+            <!-- Session Cards -->
+            <div t-if="props.sessionData.length > 0" class="row">
+                <div t-foreach="props.sessionData" t-as="session" t-key="session.id" class="col-lg-6 col-xl-4 mb-4">
+                    <div class="card session-card h-100 shadow-sm" t-on-click="() => this.onCardClick(session)">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-calendar-check me-2 text-primary"></i>
+                                <span class="fw-bold">
+                                    Session #<t t-esc="session.id"/>
+                                </span>
+                            </div>
+                            <span t-att-class="'badge ' + this.getSessionStatusClass(session.session_status)">
+                                <t t-esc="session.session_status"/>
+                            </span>
+                        </div>
+                        
+                        <div class="card-body">
+                            <!-- Session Name -->
+                            <h6 class="card-title mb-2">
+                                <t t-if="session.session_name" t-esc="session.session_name"/>
+                                <t t-else="">No name specified</t>
+                            </h6>
+
+                            <!-- Appointment Info -->
+                            <div class="mb-3">
+                                <div class="d-flex align-items-center mb-1">
+                                    <i class="fas fa-clock me-2 text-muted"></i>
+                                    <small class="text-muted">
+                                        <t t-esc="this.formatDate(session.calendar_appointment_start)"/>
+                                    </small>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-info-circle me-2 text-muted"></i>
+                                    <small t-att-class="this.getAppointmentStatusClass(session.appointment_status)">
+                                        Appointment: <t t-esc="session.appointment_status"/>
+                                    </small>
+                                </div>
+                            </div>
+
+                            <!-- Session Notes Preview -->
+                            <div class="notes-preview">
+                                <small class="text-muted d-block">
+                                    <i class="fas fa-sticky-note me-1"></i>
+                                    <t t-esc="this.truncateNotes(session.session_notes)"/>
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>
+                                    ID: <t t-esc="session.calendar_id || 'No calendar'"/>
+                                </small>
+                                <small class="text-primary fw-bold">
+                                    View Details <i class="fas fa-arrow-right ms-1"></i>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </t>
 </templates>

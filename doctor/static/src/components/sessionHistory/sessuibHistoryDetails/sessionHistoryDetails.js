@@ -1,23 +1,76 @@
-import { Component, useState, onWillStart } from "@odoo/owl";
+import { Component } from "@odoo/owl";
 import { registry } from "@web/core/registry";
-import { rpc } from "@web/core/network/rpc";
-
 
 export class SessionHistoryDetails extends Component {
-    static template = "doctor.SessionHistoryDetails";    
-    static components = { }; 
+    static template = "doctor.sessionHistoryDetails";
+    
+    static props = {
+        session: Object,
+        onBack: Function,
+    };
 
-
-    setup() {
-        this.state = useState({
-            sessionHistoryDetails: null,
-            isLoading: false,
-            error: null,
+    // Форматування дати та часу
+    formatDateTime(dateString) {
+        if (!dateString) return "Not scheduled";
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: 'long', 
+            year: 'numeric'
+        }) + ' at ' + date.toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit'
         });
+    }
 
-        onWillStart(async () => {
-            await this.loadSessionHistoryDetails();
-        });
+    // Отримання CSS класу для статусу сесії
+    getSessionStatusClass(status) {
+        const statusClasses = {
+            'Completed': 'bg-success',
+            'Cancelled': 'bg-danger',
+            'In Progress': 'bg-primary',
+            'Scheduled': 'bg-info',
+            'Draft': 'bg-secondary'
+        };
+        return statusClasses[status] || 'bg-secondary';
+    }
+
+    // Отримання CSS класу для статусу зустрічі
+    getAppointmentStatusClass(status) {
+        const statusClasses = {
+            'Completed': 'text-success',
+            'Cancelled': 'text-danger', 
+            'In Progress': 'text-primary',
+            'Scheduled': 'text-info',
+            'Draft': 'text-muted'
+        };
+        return statusClasses[status] || 'text-muted';
+    }
+
+    // Обробка кнопки "Назад"
+    onBackClick() {
+        this.props.onBack();
+    }
+
+    // Розрахунок тривалості сесії
+    calculateDuration() {
+        const { calendar_appointment_start, calendar_appointment_end } = this.props.session;
+        if (!calendar_appointment_start || !calendar_appointment_end) {
+            return "Duration not available";
+        }
+        
+        const start = new Date(calendar_appointment_start);
+        const end = new Date(calendar_appointment_end);
+        const diffMs = end - start;
+        const diffMins = Math.round(diffMs / 60000);
+        
+        if (diffMins < 60) {
+            return `${diffMins} minutes`;
+        } else {
+            const hours = Math.floor(diffMins / 60);
+            const minutes = diffMins % 60;
+            return `${hours}h ${minutes}m`;
+        }
     }
 
     async loadSessionHistoryDetails() {

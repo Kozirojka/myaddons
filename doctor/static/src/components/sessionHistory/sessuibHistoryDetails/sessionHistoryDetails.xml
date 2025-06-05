@@ -1,5 +1,169 @@
 <templates xml:space="preserve">
     <t t-name="doctor.sessionHistoryDetails" owl="1">
-        <p>Details</p>
+        <div class="session-history-details">
+            <!-- Header with Back Button -->
+            <div class="d-flex align-items-center mb-4">
+                <button class="btn btn-outline-secondary me-3" t-on-click="() => this.onBackClick()">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Back to Sessions
+                </button>
+                <div class="flex-grow-1">
+                    <h3 class="mb-1">
+                        <i class="fas fa-file-medical-alt me-2 text-primary"></i>
+                        Session Details
+                    </h3>
+                    <div class="d-flex align-items-center">
+                        <span class="text-muted me-3">Session #<t t-esc="props.session.id"/></span>
+                        <span t-att-class="'badge ' + this.getSessionStatusClass(props.session.session_status)">
+                            <t t-esc="props.session.session_status"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="row">
+                <!-- Left Column - Session Info -->
+                <div class="col-lg-8">
+                    <!-- Session Overview Card -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Session Overview
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="info-item mb-3">
+                                        <label class="fw-bold text-muted">Session Name:</label>
+                                        <div>
+                                            <t t-if="props.session.session_name" t-esc="props.session.session_name"/>
+                                            <span t-else="" class="text-muted fst-italic">No name specified</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-item mb-3">
+                                        <label class="fw-bold text-muted">Status:</label>
+                                        <div>
+                                            <span t-att-class="'badge ' + this.getSessionStatusClass(props.session.session_status)">
+                                                <t t-esc="props.session.session_status"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-item mb-3">
+                                        <label class="fw-bold text-muted">Calendar ID:</label>
+                                        <div>
+                                            <t t-if="props.session.calendar_id" t-esc="props.session.calendar_id"/>
+                                            <span t-else="" class="text-muted fst-italic">No calendar assigned</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-item mb-3">
+                                        <label class="fw-bold text-muted">Duration:</label>
+                                        <div>
+                                            <i class="fas fa-clock me-1 text-muted"></i>
+                                            <t t-esc="this.calculateDuration()"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Session Notes Card -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-sticky-note me-2"></i>
+                                Session Notes
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="notes-content">
+                                <t t-if="props.session.session_notes">
+                                    <div class="border rounded p-3 bg-light">
+                                        <pre class="mb-0" style="white-space: pre-wrap; font-family: inherit;"><t t-esc="props.session.session_notes"/></pre>
+                                    </div>
+                                </t>
+                                <div t-else="" class="text-center py-4 text-muted">
+                                    <i class="fas fa-file-alt fa-2x mb-2"></i>
+                                    <p class="mb-0">No notes available for this session</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Appointment Info -->
+                <div class="col-lg-4">
+                    <!-- Appointment Card -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                Appointment Details
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="appointment-info">
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-muted d-block">Start Time:</label>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-play me-2 text-success"></i>
+                                        <span><t t-esc="this.formatDateTime(props.session.calendar_appointment_start)"/></span>
+                                    </div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-muted d-block">End Time:</label>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-stop me-2 text-danger"></i>
+                                        <span><t t-esc="this.formatDateTime(props.session.calendar_appointment_end)"/></span>
+                                    </div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-muted d-block">Appointment Status:</label>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        <span t-att-class="this.getAppointmentStatusClass(props.session.appointment_status)">
+                                            <t t-esc="props.session.appointment_status"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-cogs me-2"></i>
+                                Quick Actions
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-print me-2"></i>
+                                    Print Session Report
+                                </button>
+                                <button class="btn btn-outline-info btn-sm">
+                                    <i class="fas fa-download me-2"></i>
+                                    Export to PDF
+                                </button>
+                                <button class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-copy me-2"></i>
+                                    Duplicate Session
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </t>
 </templates>

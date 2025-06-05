@@ -150,8 +150,6 @@ class DoctorWebsite(http.Controller):
             ('status_id.name', 'in', ['Completed', 'Cancelled'])
         ], order='create_date desc')
         
-        length_session = len(sessions)
-
         session_data = []
         for session in sessions:
             session_data.append({
@@ -160,13 +158,11 @@ class DoctorWebsite(http.Controller):
                 'session_status': session.status_id.name if session.status_id else 'Draft',
                 'session_notes': session.notes or '',
                 'calendar_id': session.calendar_id.id if session.calendar_id else False,
-                'calendar_appointment_start': session.calendar_id.start if session.calendar_id else False,
-                'calendar_appointment_end': session.calendar_id.stop if session.calendar_id else False,
-                'appointmnet_status': session.calendar_id.status_id.name if session.calendar_id and session.calendar_id.status_id else 'Draft',
+                'calendar_appointment_start': session.calendar_id.start.strftime('%Y-%m-%d %H:%M:%S') if session.calendar_id and session.calendar_id.start else False,
+                'calendar_appointment_end': session.calendar_id.stop.strftime('%Y-%m-%d %H:%M:%S') if session.calendar_id and session.calendar_id.stop else False,
+                'appointment_status': session.calendar_id.status_id.name if session.calendar_id and session.calendar_id.status_id else 'Draft',
             })
 
-
-        
-        return { 'session_data': session_data }
+        return {'sessions': session_data}
             
     

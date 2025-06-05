@@ -1,55 +1,64 @@
-import { Component, useState, onWillStart } from "@odoo/owl";
+import { Component } from "@odoo/owl";
 import { registry } from "@web/core/registry";
-import { rpc } from "@web/core/network/rpc";
 
-
-export class SessionHistoryPeview extends Component {
-    static template = "doctor.SessionHistoryPeview";    
-    static components = { }; 
-
-
-    setup() {
-        this.state = useState({
-            sessionHistory: null,
-            isLoading: false,
-            error: null,
-        });
-
-        onWillStart(async () => {
-            await this.loadSessionHistory();
-        });
-    }
-
-    async loadSessionHistory() {
-
-        var patientId = this.getPatientIdFromUrl();
-
-        var sessions = await rpc(`/doctor/patient/${patientId}/session/history`);
-
-        console.log("Session History Data", sessions);
-        
-        this.state.sessionHistory = sessions.session_data;
-        
-    }
+export class SessionHistoryPreview extends Component {
+    static template = "doctor.sessionHistoryPreview";
     
-    formatTime(dateTime) {
-        if (!dateTime) return '';
-        const date = new Date(dateTime);
-        return date.toLocaleTimeString('uk-UA', { 
-            hour: '2-digit', 
-            minute: '2-digit',
-            hour12: false 
+    static props = {
+        sessionData: Array,
+        onSessionSelect: Function,
+    };
+
+    // Форматування дати
+    formatDate(dateString) {
+        if (!dateString) return "Not scheduled";
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit', 
+            year: 'numeric'
+        }) + ' ' + date.toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit'
         });
     }
 
-    
-    getPatientIdFromUrl() {
-        const path = window.location.pathname;
-        const match = path.match(/\/doctor\/patient\/(\d+)\/treatment/);
-        return match ? parseInt(match[1]) : null;
+    // Отримання CSS класу для статусу сесії
+    getSessionStatusClass(status) {
+        const statusClasses = {
+            'Completed': 'bg-success',
+            'Cancelled': 'bg-danger',
+            'In Progress': 'bg-primary',
+            'Scheduled': 'bg-info',
+            'Draft': 'bg-secondary'
+        };
+        return statusClasses[status] || 'bg-secondary';
+    }
+
+    // Отримання CSS класу для статусу зустрічі
+    getAppointmentStatusClass(status) {
+        const statusClasses = {
+            'Completed': 'text-success',
+            'Cancelled': 'text-danger', 
+            'In Progress': 'text-primary',
+            'Scheduled': 'text-info',
+            'Draft': 'text-muted'
+        };
+        return statusClasses[status] || 'text-muted';
+    }
+
+    // Обробка кліку на карточку
+    onCardClick(session) {
+        this.props.onSessionSelect(session);
+    }
+
+    // Обрізання нотаток для попереднього перегляду
+    truncateNotes(notes, maxLength = 80) {
+        if (!notes) return "No notes available";
+        return notes.length > maxLength ? notes.substring(0, maxLength) + "..." : notes;
     }
 }
 
 registry
     .category("public_components")
-    .add("doctor.sessionHistoryPreview", SessionHistoryPeview);
+    .add("doctor.sessionHistoryPreview", SessionHistoryPreview);

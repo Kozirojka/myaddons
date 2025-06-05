@@ -1,5 +1,35 @@
 <templates xml:space="preserve">
     <t t-name="doctor.sessionHistory" owl="1">
-        <t t-component="myComponent"/>
+            <div t-if="state.isLoading" class="text-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2 text-muted">Loading session history...</p>
+            </div>
+
+            <!-- Error State -->
+            <div t-if="state.error" class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Error:</strong> <t t-esc="state.error"/>
+                <button class="btn btn-sm btn-outline-danger ms-2" t-on-click="() => this.loadSessionHistory()">
+                    <i class="fas fa-redo"></i> Retry
+                </button>
+            </div>
+
+            <div t-if="!state.isLoading and !state.error">
+                <!-- Preview Component (список карточок) -->sessions
+                <SessionHistoryPreview 
+                    t-if="state.currentView === 'preview'"
+                    sessionData="state.sessionData"
+                    onSessionSelect="(session) => this.showSessionDetails(session)"
+                />
+
+                <!-- Details Component (деталі сесії) -->
+                <SessionHistoryDetails 
+                    t-if="state.currentView === 'details'"
+                    session="state.selectedSession"
+                    onBack="() => this.backToPreview()"
+                />
+            </div>
     </t>
 </templates>

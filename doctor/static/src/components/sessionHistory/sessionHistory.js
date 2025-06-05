@@ -1,25 +1,66 @@
 import { Component, useState, onWillStart } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
-import { SessionHistoryPeview } from "./sessionHistoryPreview/sessionHistoryPreview";
+import { SessionHistoryPreview } from "./sessionHistoryPreview/sessionHistoryPreview";
 import { SessionHistoryDetails } from "./sessuibHistoryDetails/sessionHistoryDetails";
 
 export class SessionHistory extends Component {
     static template = "doctor.sessionHistory";    
-    static components = { SessionHistoryPeview, SessionHistoryDetails }; 
-
+    static components = { SessionHistoryPreview, SessionHistoryDetails }; 
 
     setup() {
         this.state = useState({
-            isLoading: false,
+            isLoading: true,
             error: null,
-            child: "a"
+            currentView: "preview", 
+            selectedSession: null,
+            sessionData: []
         });
 
+        onWillStart(async () => {
+            await this.loadSessionHistory();
+        });
     }
 
-    get myComponent() {
-        return this.state.child === "a" ? SessionHistoryPeview : SessionHistoryDetails;
+    async loadSessionHistory() {
+        try {
+            this.state.isLoading = true;
+            this.state.error = null;
+            
+            const patientId = this.getPatientIdFromUrl();
+            if (!patientId) {
+                throw new Error("Patient ID not found in URL");
+            }
+
+            const result = await rpc(`/doctor/patient/${patientId}/session/history`, {});
+
+            if (result.error) {
+                throw new Error(result.error);
+            }
+
+            this.state.sessionData = result.sessions || [];
+        } catch (error) {
+            console.error("Error loading session history:", error);
+            this.state.error = error.message;
+        } finally {
+            this.state.isLoading = false;
+        }
+    }
+
+    // Перемикання на детальний перегляд сесії
+    showSessionDetails(session) {
+        this.state.selectedSession = session;
+        this.state.currentView = "details";
+    }
+
+    // Повернення до списку сесій
+    backToPreview() {
+        this.state.currentView = "preview";
+        this.state.selectedSession = null;
+    }
+
+    get currentComponent() {
+        return this.state.currentView === "preview" ? SessionHistoryPreview : SessionHistoryDetails;
     }
 
     getPatientIdFromUrl() {
