@@ -16,17 +16,30 @@
             <div t-if="!state.isLoading and !state.error">
                 <!-- Horizontal Tabs -->
                 <div class="horizontal-tabs">
-                    <button 
-                        t-foreach="tabsConfig.horizontal" 
-                        t-as="hTab" 
-                        t-key="hTab.id"
-                        class="horizontal-tab"
-                        t-att-class="(state.activeHorizontalTab === hTab.id ? 'active' : '')"
-                        t-on-click="() => this.setActiveHorizontalTab(hTab.id)"
-                        type="button">
-                        <t t-esc="hTab.label"/>
-                    </button>
-                    <div class="flex-grow-1"></div>
+                    <div class="horizontal-tabs-left">
+                        <button 
+                            t-foreach="tabsConfig.horizontal.slice(0, 2)" 
+                            t-as="hTab" 
+                            t-key="hTab.id"
+                            class="horizontal-tab"
+                            t-att-class="(state.activeHorizontalTab === hTab.id ? 'active' : '')"
+                            t-on-click="() => this.setActiveHorizontalTab(hTab.id)"
+                            type="button">
+                            <t t-esc="hTab.label"/>
+                        </button>
+                    </div>
+                    <div class="horizontal-tabs-right">
+                        <button 
+                            t-foreach="tabsConfig.horizontal.slice(2)" 
+                            t-as="hTab" 
+                            t-key="hTab.id"
+                            class="horizontal-tab"
+                            t-att-class="(state.activeHorizontalTab === hTab.id ? 'active' : '')"
+                            t-on-click="() => this.setActiveHorizontalTab(hTab.id)"
+                            type="button">
+                            <t t-esc="hTab.label"/>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="content-area">
@@ -39,7 +52,9 @@
                             t-att-class="activeVerticalTab === vTab.id ? 'active' : ''"
                             t-on-click="state.activeHorizontalTab === 'treatment' ? 
                                        () => this.setActiveTreatmentTab(vTab.id) : 
-                                       () => this.setActiveHistoryTab(vTab.id)"
+                                       state.activeHorizontalTab === 'history' ?
+                                       () => this.setActiveHistoryTab(vTab.id) :
+                                       () => this.setActiveTreatmentPlanTab(vTab.id)"
                             type="button">
                             <t t-esc="vTab.label"/>
                         </button>
@@ -96,6 +111,13 @@
                                         <p>Access patient documents and files.</p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div t-if="state.activeHorizontalTab === 'treatmentPlan'">
+                            
+                            <div t-if="state.activeTreatmentPlanTab === 'overview'" class="module-content active">
+                                <Overview/>
                             </div>
                         </div>
                     </div>

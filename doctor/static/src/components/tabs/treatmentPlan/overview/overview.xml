@@ -1,0 +1,21 @@
+<templates xml:space="preserve">
+    <t t-name="doctor.overview" owl="1">
+        <div class="overview-container">
+            <div t-if="state.isLoading" class="text-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading treatment plan...</p>
+            </div>
+
+            <div t-if="state.error" class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <t t-esc="state.error"/>
+            </div>
+
+            <div t-if="!state.isLoading and !state.error and state.treatmentData" class="overview-content">
+                
+            </div>
+        </div>
+    </t>
+</templates>
