@@ -1,0 +1,5 @@
+<templates xml:space="preserve">
+    <t t-name="doctor.sessionHistoryDetails" owl="1">
+        <p>Details</p>
+    </t>
+</templates>

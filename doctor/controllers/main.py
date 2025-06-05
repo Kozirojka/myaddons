@@ -128,5 +128,45 @@ class DoctorWebsite(http.Controller):
             
         except Exception as e:
             return {'error': str(e)}
+
+
+    @http.route('/doctor/patient/<int:id>/session/history', type='json', auth="public", website=True)
+    def get_past_sessions(self, id):
         
+        patient = request.env['patient'].sudo().browse(id)
+        if not patient:
+            return {'error': 'Patient not found'}
+        
+        treatment_plans = request.env['treatment.plan'].sudo().search([('patient_id', '=', patient.id)])
+
+        treatment_modules = request.env['treatment.module'].sudo().search(
+            [('treatment_plan_id', '=', treatment_plans.id)], 
+            order='start_date desc', 
+            limit=1
+        )
+
+        sessions = request.env['therapy.session'].sudo().search([
+            ('treatment_module_id', '=', treatment_modules.id),
+            ('status_id.name', 'in', ['Completed', 'Cancelled'])
+        ], order='create_date desc')
+        
+        length_session = len(sessions)
+
+        session_data = []
+        for session in sessions:
+            session_data.append({
+                'id': session.id,
+                'session_name': session.name if session.name else False,
+                'session_status': session.status_id.name if session.status_id else 'Draft',
+                'session_notes': session.notes or '',
+                'calendar_id': session.calendar_id.id if session.calendar_id else False,
+                'calendar_appointment_start': session.calendar_id.start if session.calendar_id else False,
+                'calendar_appointment_end': session.calendar_id.stop if session.calendar_id else False,
+                'appointmnet_status': session.calendar_id.status_id.name if session.calendar_id and session.calendar_id.status_id else 'Draft',
+            })
+
+
+        
+        return { 'session_data': session_data }
+            
     

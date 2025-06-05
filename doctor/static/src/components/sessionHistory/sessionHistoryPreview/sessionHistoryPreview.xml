@@ -1,0 +1,6 @@
+<templates xml:space="preserve">
+    <t t-name="doctor.sessionHistoryPreview" owl="1">
+        <p>Pewview</p>
+
+    </t>
+</templates>

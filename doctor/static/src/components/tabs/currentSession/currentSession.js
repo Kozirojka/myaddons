@@ -63,17 +63,6 @@ export class CurrentSession extends Component {
 
     getStatusBadgeClass(status) {
         const statusClasses = {
-            'Draft': 'bg-secondary',
-            'In Progress': 'bg-primary',
-            'Completed': 'bg-success',
-            'Cancelled': 'bg-danger',
-            
-        };
-        return statusClasses[status] || 'bg-secondary';
-    }
-
-    toggleOgetStatusBadgeClass(status) {
-        const statusClasses = {
             'Scheduled': 'bg-info',
             'In Progress': 'bg-primary',
             'Completed': 'bg-success',
@@ -84,7 +73,7 @@ export class CurrentSession extends Component {
         return statusClasses[status] || 'bg-secondary';
     }
     
-    oservationEdit() {
+    toggleObservationEdit() {
         this.state.isEditingObservation = !this.state.isEditingObservation;
         if (this.state.isEditingObservation) {
             this.state.observationText = this.state.currentSession?.session_notes || '';

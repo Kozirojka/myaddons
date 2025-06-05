@@ -3,9 +3,11 @@ import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
 import { Tasks } from "./tasks/tasks";
 import { CurrentSession } from "./currentSession/currentSession";
+import { SessionHistory } from "../sessionHistory/sessionHistory";
+
 export class DoctorTabs extends Component {
     static template = "doctor.tabs";    
-    static components = { Tasks, CurrentSession }; 
+    static components = { Tasks, CurrentSession, SessionHistory }; 
     setup() {
 
         console.log("DoctorTabs component initialized");
@@ -30,24 +32,22 @@ export class DoctorTabs extends Component {
                 {
                     id: 'treatment',
                     label: 'Treatment',
-                    icon: 'fas fa-stethoscope'
                 },
                 {
                     id: 'history',
                     label: 'Diagnostic',
-                    icon: 'fas fa-history'
                 }
             ],
             vertical: {
                 treatment: [
-                    { id: 'modules', label: 'Current session', icon: 'fas fa-puzzle-piece' },
-                    { id: 'sessions', label: 'Tasks', icon: 'fas fa-calendar-check' },
-                    { id: 'materials', label: 'Session history', icon: 'fas fa-book' }
+                    { id: 'modules', label: 'Current session' },
+                    { id: 'sessions', label: 'Tasks' },
+                    { id: 'materials', label: 'Session history' }
                 ],
                 history: [
-                    { id: 'medical', label: 'Medical Records', icon: 'fas fa-file-medical' },
-                    { id: 'appointments', label: 'Appointments', icon: 'fas fa-calendar-alt' },
-                    { id: 'documents', label: 'Documents', icon: 'fas fa-folder-open' }
+                    { id: 'medical', label: 'Medical Records' },
+                    { id: 'appointments', label: 'Appointments' },
+                    { id: 'documents', label: 'Documents' },
                 ]
             }
         };

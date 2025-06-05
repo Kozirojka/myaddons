@@ -62,7 +62,7 @@
                             </div>
 
                             <div t-if="state.activeTreatmentTab === 'materials'" class="module-content active">
-                                
+                                <SessionHistory/>
                             </div>
                         </div>
 
