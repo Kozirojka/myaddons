@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+        <record id="menu_session_page" model="website.menu">
+            <field name="name">Session</field>
+            <field name="url">/session-page</field>
+            <field name="parent_id" ref="website.main_menu" />
+            <field name="sequence" type="int">50</field>
+        </record>
+    </data>
+</odoo>
