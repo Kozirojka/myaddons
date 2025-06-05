@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="session_page" name="Session Page">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <h1 class="mb-4">
+                    <t t-esc="session_name"/>
+                </h1>
+
+                <script>
+                    <!-- That's unsafe my ass but i cant figure how to pass props into owl component -->
+
+                    window.DEBUG_SESSION_ID = <t t-esc="session_id"/>;
+                    console.log('Set window.DEBUG_SESSION_ID:', window.DEBUG_SESSION_ID);
+                </script>
+
+                <owl-component name="session.SessionComponent"/>
+            </div>
+        </t>
+    </template>
+</odoo>
