@@ -34,7 +34,7 @@ export class DoctorTabs extends Component {
                 },
                 {
                     id: 'history',
-                    label: 'Patient History',
+                    label: 'Diagnostic',
                     icon: 'fas fa-history'
                 }
             ],

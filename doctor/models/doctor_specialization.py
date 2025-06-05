@@ -9,3 +9,4 @@ class DoctorSpecialization(models.Model):
     speacialization_description = fields.Text(string="Description")
 
     doctor_ids = fields.One2many("doctor", "specialization_id", string="Doctors")
+    

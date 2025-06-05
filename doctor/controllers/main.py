@@ -25,11 +25,10 @@ class DoctorWebsite(http.Controller):
     
     @http.route('/doctor/patient/data/<int:id>/tasks', type='json', auth="public", website=True)
     def get_test_data(self, id):
-
-        patient = request.env['patient'].sudo().browse(1)
+        patient = request.env['patient'].sudo().browse(id)
         if not patient:
-                return {'error': 'Patient not found'}
-
+            return {'error': 'Patient not found'}
+        
         treatment_plans = request.env['treatment.plan'].sudo().search([('patient_id', '=', patient.id)])
 
         treatment_modules = request.env['treatment.module'].sudo().search(
@@ -37,24 +36,40 @@ class DoctorWebsite(http.Controller):
             order='start_date desc', 
             limit=1
         )
-
-
-        exercise_cases = request.env['therapy.exercise.case'].sudo().search([('treatment_module_id', '=', treatment_modules.id)])
-
-        exercise_lance = len(exercise_cases)
-        return {
-            'exercieses_count': exercise_lance,
-            'treat': treatment_plans.id,
-            'module': treatment_modules.id,
-
-            'exercise_cases': [
-                {
-                 'id': case.id, 
-                 'name': case.exercises_id.description,
-                 'status': case.exercises_status_id.name,
+        
+        exercise_cases = request.env['therapy.exercise.case'].sudo().search([
+            ('treatment_module_id', '=', treatment_modules.id)
+        ])
+        
+        exercise_data = []
+        for case in exercise_cases:
+            session_exercise = request.env['therapy.session.exercise'].sudo().search([
+                ('exercise_case_id', '=', case.id)
+            ], limit=1)
+            
+            if session_exercise:
+                session = session_exercise.session_id
+                session_info = {
+                    'session_id': session.id,
+                    'session_name': session.name,
+                    'order_number': session_exercise.order_number,
+                    'session_status': session.status_id.name if session.status_id else None,
+                    'session_notes': session.notes,
                 }
-                for case in exercise_cases
-            ]
+            else:
+                session_info = None
+
+
+            exercise_data.append({
+                'id': case.id,
+                'name': case.exercises_id.description,
+                'status': case.exercises_status_id.name,
+                'session': session_info,
+                'result_exercise': case.result_exercise,
+            })
+        
+        return {
+            'exercise_cases': exercise_data
         }
     
     @http.route('/doctor/patient/<int:id>/session', type='json', auth="public", website=True)
@@ -113,3 +128,5 @@ class DoctorWebsite(http.Controller):
             
         except Exception as e:
             return {'error': str(e)}
+        
+    

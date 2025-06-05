@@ -14,16 +14,31 @@
                     <t t-esc="props.task.description || 'Daily 15-minute breathing exercises'"/>
                 </p>
 
-                <p class="task-description">
-                    <t t-esc="props.task.status"/>
+                <t t-if="props.task.result_exercise &amp;&amp; props.task.result_exercise.url_images &amp;&amp; props.task.result_exercise.url_images.length">
+                    <div class="task-images mb-2" style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <t t-foreach="props.task.result_exercise.url_images" t-as="imgUrl" t-key="imgUrl">
+                            <img t-att-src="imgUrl"
+                                 class="task-image"
+                                 style="max-width: 120px; max-height: 120px; border-radius: 6px; object-fit: cover; border: 1px solid #eee;"
+                                 alt="Task photo"
+                                 loading="lazy"/>
+                        </t>
+                    </div>
+                </t>
+
+                
+                <p class="task-description" t-if="props.task.session">
+                    <span t-att-title="props.task.session.session_name || 'there is no session name'" style="cursor: help; border-bottom: 1px dotted #666;">
+                        session - <t t-esc="props.task.session.session_id"/>
+                    </span>
                 </p>
 
+                
 
-                <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-pj5wGVEUnvpp96LvX1m1Of-laOrd7ljh1A&amp;s" 
-                     class="task-image" 
-                     alt="Task illustration" 
-                     loading="lazy"/> -->
-
+                <span t-if="props.task and props.task.status" t-attf-class="badge ms-2 #{getStatusBadgeClass(props.task.status)}">
+                    <t t-esc="props.task.status"/>
+                </span>
+                
                 <div class="comment-form" t-att-id="'comment-form-' + props.task.id" t-att-style="state.showCommentForm ? '' : 'display: none'">
                     <form class="task-comment-form" t-att-data-task-id="props.task.id" t-on-submit="saveComment">
                         <div class="mb-2">

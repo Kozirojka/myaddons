@@ -84,7 +84,7 @@ export class CurrentSession extends Component {
         return statusClasses[status] || 'bg-secondary';
     }
     
-    toggleObservationEdit() {
+    oservationEdit() {
         this.state.isEditingObservation = !this.state.isEditingObservation;
         if (this.state.isEditingObservation) {
             this.state.observationText = this.state.currentSession?.session_notes || '';

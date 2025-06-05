@@ -24,15 +24,12 @@
                         t-att-class="(state.activeHorizontalTab === hTab.id ? 'active' : '')"
                         t-on-click="() => this.setActiveHorizontalTab(hTab.id)"
                         type="button">
-                        <i t-att-class="hTab.icon"></i>
                         <t t-esc="hTab.label"/>
                     </button>
                     <div class="flex-grow-1"></div>
                 </div>
 
-                <!-- Content Area -->
                 <div class="content-area">
-                    <!-- Vertical Tabs -->
                     <div class="vertical-tabs">
                         <button 
                             t-foreach="currentVerticalTabs" 
@@ -44,18 +41,15 @@
                                        () => this.setActiveTreatmentTab(vTab.id) : 
                                        () => this.setActiveHistoryTab(vTab.id)"
                             type="button">
-                            <i t-att-class="vTab.icon"></i>
                             <t t-esc="vTab.label"/>
                         </button>
                         
-                        <!-- End Module Button (только для treatment) -->
                         <div t-if="state.activeHorizontalTab === 'treatment'" class="end-module-tab">
                             <i class="fas fa-stop-circle"></i>
                             End Module
                         </div>
                     </div>
 
-                    <!-- Tab Content -->
                     <div class="tab-content active">
                         <div t-if="state.activeHorizontalTab === 'treatment'" id="treatment-module">
                             

@@ -31,21 +31,14 @@ export class Tasks extends Component {
   async loadTasks() {
 
     try {
-      console.log("Loading tasks...");
 
       const patientId = this.getPatientIdFromUrl();
-
-
-      console.log(`Patient ID: ${patientId}`);
-
 
       const result = await rpc(`/doctor/patient/data/${patientId}/tasks`);
 
       console.log(result);
 
       this.state.tasks = result.exercise_cases;
-
-      console.log("TASKS tasks successfully");
 
     } catch (error) {
       this.state.error = error.message;
