@@ -11,14 +11,15 @@ class DoctorWebsite(http.Controller):
     @http.route('/patient/data/<int:id>', type='json', auth="public", website=True)
     def get_patient_data(self, id):
 
-        partner = request.env['res.partner'].sudo().browse(id)        
+        patient = request.env['patient'].sudo().browse(id)  
+
         return {
             'partner': {
-                'id' : partner.id,
-                'name': partner.name,
-                'email': partner.email,
-                'phone': partner.phone,
-                'address': partner.contact_address_complete,
+                'id' : patient.partner_id.id,
+                'name': patient.partner_id.name,
+                'email': patient.partner_id.email,
+                'phone': patient.partner_id.phone,
+                'address': patient.partner_id.contact_address_complete,
             }
         }
     
@@ -29,13 +30,23 @@ class DoctorWebsite(http.Controller):
         if not patient:
                 return {'error': 'Patient not found'}
 
-        treatment_plans = request.env['treatment.plan'].sudo().search([('patient_id', '=', 1)])
+        treatment_plans = request.env['treatment.plan'].sudo().search([('patient_id', '=', patient.id)])
 
-        treatment_modules = request.env['treatment.module'].sudo().search([('treatment_plan_id', '=', 1)])
+        treatment_modules = request.env['treatment.module'].sudo().search(
+            [('treatment_plan_id', '=', treatment_plans.id)], 
+            order='start_date desc', 
+            limit=1
+        )
 
-        exercise_cases = request.env['therapy.exercise.case'].sudo().search([('treatment_module_id', '=', 1)])
 
+        exercise_cases = request.env['therapy.exercise.case'].sudo().search([('treatment_module_id', '=', treatment_modules.id)])
+
+        exercise_lance = len(exercise_cases)
         return {
+            'exercieses_count': exercise_lance,
+            'treat': treatment_plans.id,
+            'module': treatment_modules.id,
+
             'exercise_cases': [
                 {
                  'id': case.id, 
@@ -46,6 +57,59 @@ class DoctorWebsite(http.Controller):
             ]
         }
     
-    # @http.route('/doctor/patient/data/<int:id>/tasks', type='json', auth="public", website=True)
-    # def get_current_session_data(self, id):
+    @http.route('/doctor/patient/<int:id>/session', type='json', auth="public", website=True)
+    def get_current_session_data(self, id):
         
+        patient = request.env['patient'].sudo().browse(id)
+
+        # 14-15 
+        # статус сессии
+        # Observation
+
+        # потрібно витягнути останнє виокнанен завдання пацієнта
+            # воно має статус, фото
+        treatment_plans = request.env['treatment.plan'].sudo().search([('patient_id', '=', patient.id)])
+
+
+        treatment_modules = request.env['treatment.module'].sudo().search(
+            [('treatment_plan_id', '=', treatment_plans.id)], 
+            order='start_date desc', 
+            limit=1
+        )
+
+
+        session = request.env['therapy.session'].sudo().search(
+            [('treatment_module_id', '=', treatment_modules.id)],
+            order='create_date desc',
+            limit=1
+        )
+
+        return {
+            'session': {
+                'id': session.id,
+                'session_name': session.name if session.name else False,
+                'session_status': session.status_id.name if session.status_id else 'Draft',
+                'session_notes': session.notes or '',
+                'calendar_id': session.calendar_id.id if session.calendar_id else False,
+                'calendar_appointment_start': session.calendar_id.start if session.calendar_id else False,
+                'calendar_appointment_end': session.calendar_id.stop if session.calendar_id else False,
+                'appointmnet_status': session.calendar_id.status_id.name if session.calendar_id and session.calendar_id.status_id else 'Draft',
+            },
+            'treatment_module': {
+                'id': treatment_modules.id,
+                'name': treatment_modules.name,
+            }
+        }
+
+    @http.route('/doctor/patient/session/update_notes', type='json', auth="public", website=True)
+    def update_session_notes(self, session_id, notes):
+        try:
+            session = request.env['therapy.session'].sudo().browse(session_id)
+            if not session.exists():
+                return {'error': 'Session not found'}
+            
+            session.write({'notes': notes})
+            return {'success': True}
+            
+        except Exception as e:
+            return {'error': str(e)}
