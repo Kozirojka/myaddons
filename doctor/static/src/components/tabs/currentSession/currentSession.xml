@@ -33,8 +33,7 @@
                 </div>
             </div>
 
-            <!-- Full-width observations block -->
-            <div class="card module-card shadow-sm mb-4" style="border-left: 4px solid #0d6efd; margin-left: -20px; margin-right: -20px;">
+            <div class="card module-card shadow-sm mb-4" style="border-left: 4px solid #0d6efd;">
                 <div class="card-header module-header d-flex justify-content-between align-items-center bg-primary-subtle text-primary">
                     <h5 class="mb-0"><i class="fas fa-eye me-2"></i>Observations</h5>
                     <button class="btn btn-sm btn-outline-primary" t-on-click="toggleObservationEdit">
@@ -61,6 +60,12 @@
                     </div>
                 </div>
             </div>
+
+            <PatientWorkbook t-if="state.currentSession" 
+                             sessionData="state.currentSession"
+                             treatmentModule="state.treatmentModule"
+                             exercise="state.currentSession.patient_workbook.exercise"
+                             attached_materials="state.currentSession.patient_workbook.attached_materials" />
         </div>
     </t>
 </templates>

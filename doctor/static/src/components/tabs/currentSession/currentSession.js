@@ -1,10 +1,12 @@
 import { Component, useState, onWillStart } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
+import { PatientWorkbook } from "./patientWorkbook/patientWorkbook";
 
 export class CurrentSession extends Component {
     static template = "doctor.currentSession";    
-    
+    static components = { PatientWorkbook };
+
     setup() {
         this.state = useState({
             currentSession: null,

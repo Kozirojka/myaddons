@@ -92,7 +92,7 @@ class DoctorWebsite(http.Controller):
             limit=1
         )
 
-
+        # виправити щоб шукало за статусом
         session = request.env['therapy.session'].sudo().search(
             [('treatment_module_id', '=', treatment_modules.id)],
             order='create_date desc',
@@ -109,11 +109,31 @@ class DoctorWebsite(http.Controller):
                 'calendar_appointment_start': session.calendar_id.start if session.calendar_id else False,
                 'calendar_appointment_end': session.calendar_id.stop if session.calendar_id else False,
                 'appointmnet_status': session.calendar_id.status_id.name if session.calendar_id and session.calendar_id.status_id else 'Draft',
+                'patient_workbook': {
+                    'attached_materials': [
+                        {'id': 1, 'name': 'Material 1'},
+                        {'id': 2, 'name': 'Material 2'}
+                    ],
+                    'exercise': {
+                        'id': 1,
+                        'name': 'Exercise 1',
+                        'description': 'This is a sample exercise description.',
+                        'status': 'In Progress',
+                        'result_exercise': {
+                            "score": 64,
+                            "url_images": [
+                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUPIfiGgUML8G3ZqsNLHfaCnZK3I5g4tJabQ&s",
+                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtnvAOajH9gS4C30cRF7rD_voaTAKly2Ntaw&s"
+                            ]
+                        }
+                    }
+                }
             },
             'treatment_module': {
                 'id': treatment_modules.id,
                 'name': treatment_modules.name,
             }
+
         }
 
     @http.route('/doctor/patient/session/update_notes', type='json', auth="public", website=True)

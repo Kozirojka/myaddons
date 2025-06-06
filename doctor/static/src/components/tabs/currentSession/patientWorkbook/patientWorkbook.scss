@@ -1,0 +1,237 @@
+
+/* Patient Workbook Styles */
+.patient-workbook-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    
+    &:not(.collapsed) {
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        border-color: #c3e6cb;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    &:hover {
+        background: linear-gradient(135deg, #e2e6ea 0%, #dae0e5 100%);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    }
+    
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    }
+}
+
+.accordion-item {
+    border: none !important;
+    
+    .accordion-body {
+        background-color: #fdfdfe;
+        border: 1px solid #e9ecef;
+        border-top: none;
+        border-radius: 0 0 8px 8px;
+    }
+}
+
+/* Section Styling */
+.workbook-section {
+    .section-title {
+        font-weight: 600;
+        color: #495057;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 8px;
+        margin-bottom: 16px !important;
+    }
+}
+
+/* Materials List */
+.materials-list {
+    .material-item {
+        background-color: #fff;
+        border: 1px solid #e9ecef !important;
+        transition: all 0.2s ease;
+        
+        &:hover {
+            background-color: #f8f9fa;
+            border-color: #dee2e6 !important;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .material-name {
+            font-weight: 500;
+            color: #495057;
+        }
+    }
+}
+
+/* Exercise Details */
+.exercise-details {
+    .detail-item {
+        .detail-label {
+            font-weight: 600;
+            color: #6c757d;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.875rem;
+        }
+        
+        .detail-value {
+            color: #495057;
+            font-weight: 500;
+        }
+    }
+}
+
+/* Attachments Gallery */
+.attachments-gallery {
+    .attachment-card {
+        background: #fff;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-color: #ced4da;
+        }
+        
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            
+            .attachment-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+                
+                &:hover {
+                    transform: scale(1.05);
+                }
+            }
+        }
+        
+        .attachment-footer {
+            padding: 8px 12px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+        }
+    }
+}
+
+/* Empty States */
+.empty-state {
+    padding: 2rem 1rem;
+    
+    i {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    
+    p {
+        color: #6c757d;
+        margin: 0;
+    }
+}
+
+.empty-state-main {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 8px;
+    border: 1px dashed #ced4da;
+    
+    h6 {
+        color: #6c757d;
+        font-weight: 600;
+    }
+    
+    p {
+        color: #6c757d;
+        opacity: 0.8;
+    }
+}
+
+/* Badge Styling */
+.badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    
+    &.bg-success {
+        background-color: #198754 !important;
+    }
+    
+    &.bg-warning {
+        background-color: #fd7e14 !important;
+        color: #fff !important;
+    }
+    
+    &.bg-secondary {
+        background-color: #6c757d !important;
+    }
+    
+    &.bg-primary {
+        background-color: #0d6efd !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .patient-workbook-header {
+        .d-flex {
+            flex-direction: column;
+            align-items: flex-start !important;
+            
+            .badge {
+                margin-top: 8px;
+                margin-left: 0 !important;
+            }
+        }
+    }
+    
+    .attachments-gallery {
+        .col-md-4 {
+            margin-bottom: 1rem;
+        }
+    }
+    
+    .workbook-section {
+        margin-bottom: 2rem;
+    }
+}
+
+/* Animation for collapse */
+.accordion-collapse {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Focus states for accessibility */
+.material-item:focus,
+.attachment-card:focus {
+    outline: 2px solid #0d6efd;
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .patient-workbook-header {
+        background: #fff !important;
+        box-shadow: none !important;
+    }
+    
+    .accordion-collapse {
+        display: block !important;
+    }
+    
+    .attachment-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
