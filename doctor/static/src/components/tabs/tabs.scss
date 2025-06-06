@@ -21,6 +21,17 @@ $danger-red: #dc3545;
         padding: 0 20px;
         align-items: center;
         background: #ffffff;
+        justify-content: space-between;
+    }
+
+    .horizontal-tabs-left {
+        display: flex;
+        align-items: center;
+    }
+
+    .horizontal-tabs-right {
+        display: flex;
+        align-items: center;
     }
 
     .horizontal-tab {
@@ -220,6 +231,7 @@ $danger-red: #dc3545;
         box-shadow: 0 2px 4px rgba(124, 123, 173, 0.1);
     }
 }
+
 
 // Animations
 @keyframes fadeIn {

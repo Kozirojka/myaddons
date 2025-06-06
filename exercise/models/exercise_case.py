@@ -9,3 +9,4 @@ class ExerciseCase(models.Model):
     exercises_type_id = fields.Many2one('therapy.exercise.type', string='Exercise Type')
     exercises_status_id = fields.Many2one('therapy.exercise.status', string='Exercise Status')
     treatment_module_id = fields.Many2one('treatment.module', string='Treatment Module')
+    

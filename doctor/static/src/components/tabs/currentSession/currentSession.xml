@@ -1,11 +1,71 @@
 <templates xml:space="preserve">
     <t t-name="doctor.currentSession" owl="1">
-        <div class="text-center py-3">
+        <!-- <div t-if="state.isLoading" class="text-center py-3">
             <div class="spinner-border spinner-border-sm" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
             <span class="ms-2">Loading patient data...</span>
         </div>
+
+        <div t-if="!state.isLoading and state.error" class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <t t-esc="state.error"/>
+        </div> -->
+
+        <div t-if="!state.isLoading and !state.error">
+            <h3 class="content-title">Current Session - <t t-esc="state.currentSession.session_name"/></h3>
+
+            <div class="session-block">
+                <div class="d-flex align-items-center mb-3">
+                    <div>
+                        <span class="text-muted">
+                            <i class="fas fa-clock me-1"></i> 
+                            <t t-if="state.currentSession and state.currentSession.calendar_appointment_start">
+                                <t t-esc="formatTime(state.currentSession.calendar_appointment_start)"/> - 
+                                <t t-esc="formatTime(state.currentSession.calendar_appointment_end)"/>
+                            </t>
+                        </span>
+                        <span t-if="state.currentSession and state.currentSession.appointmnet_status" 
+                              t-attf-class="badge ms-2 #{getStatusBadgeClass(state.currentSession.appointmnet_status)}">
+                            <t t-esc="state.currentSession.appointmnet_status"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card module-card shadow-sm mb-4" style="border-left: 4px solid #0d6efd;">
+                <div class="card-header module-header d-flex justify-content-between align-items-center bg-primary-subtle text-primary">
+                    <h5 class="mb-0"><i class="fas fa-eye me-2"></i>Observations</h5>
+                    <button class="btn btn-sm btn-outline-primary" t-on-click="toggleObservationEdit">
+                        <i class="fas fa-edit me-1"></i> Edit
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div t-if="!state.isEditingObservation" id="observationText" class="p-3 bg-light rounded">
+                        <i class="fas fa-quote-left text-muted me-2"></i>
+                        <t t-if="state.currentSession and state.currentSession.session_notes" 
+                           t-esc="state.currentSession.session_notes"/>
+                        <i class="fas fa-quote-right text-muted ms-2"></i>
+                    </div>
+                    <div t-if="state.isEditingObservation" id="observationEdit" class="mt-3">
+                        <textarea class="form-control" rows="3" t-model="state.observationText"/>
+                        <div class="mt-2 text-end">
+                            <button class="btn btn-sm btn-outline-secondary me-2" t-on-click="cancelObservation">
+                                Cancel
+                            </button>
+                            <button class="btn btn-sm btn-primary" t-on-click="saveObservation">
+                                <i class="fas fa-save me-1"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <PatientWorkbook t-if="state.currentSession" 
+                             sessionData="state.currentSession"
+                             treatmentModule="state.treatmentModule"
+                             exercise="state.currentSession.patient_workbook.exercise"
+                             attached_materials="state.currentSession.patient_workbook.attached_materials" />
+        </div>
     </t>
 </templates>
-

@@ -1,0 +1,148 @@
+<templates xml:space="preserve">
+    <t t-name="doctor.patientWorkbook" owl="1">
+        <div class="accordion" id="patientWorkbookAccordion">
+            <div class="accordion-item border-0 mb-3">
+                <h2 class="accordion-header" id="workbook-heading">
+                    <button class="accordion-button collapsed patient-workbook-header" 
+                            type="button" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#workbook-collapse" 
+                            aria-expanded="false" 
+                            aria-controls="workbook-collapse">
+                        <div class="d-flex align-items-center justify-content-between w-100 me-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-book-reader me-3 text-success"></i>
+                                <span class="fw-semibold text-dark">Patient workbook</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="badge rounded-pill me-2" 
+                                      t-attf-class="badge {{ props.exercise and props.exercise.status === 'Completed' ? 'bg-success' : props.exercise and props.exercise.status === 'In Progress' ? 'bg-warning' : 'bg-secondary' }}">
+                                    <t t-if="props.exercise and props.exercise.status">
+                                        <t t-esc="props.exercise.status"/>
+                                    </t>
+                                    <t t-else="">Pending</t>
+                                </span>
+                            </div>
+                        </div>
+                    </button>
+                </h2>
+                <div id="workbook-collapse" 
+                     class="accordion-collapse collapse" 
+                     aria-labelledby="workbook-heading" 
+                     data-bs-parent="#patientWorkbookAccordion">
+                    <div class="accordion-body p-4">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="workbook-section">
+                                    <h6 class="section-title mb-3">
+                                        <i class="fas fa-file-text me-2 text-primary"></i>
+                                        Materials Provided
+                                    </h6>
+                                    <div class="materials-list">
+                                        <t t-if="props.attached_materials and props.attached_materials.length > 0">
+                                            <t t-foreach="props.attached_materials" t-as="material" t-key="material.id">
+                                                <div class="material-item d-flex justify-content-between align-items-center p-3 mb-2 rounded border">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-file-pdf text-danger me-2"></i>
+                                                        <span class="material-name" t-esc="material.name"></span>
+                                                    </div>
+                                                    <small class="text-muted">
+                                                        <t t-esc="material.created_date or '05/01/25'"/>
+                                                    </small>
+                                                </div>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <div class="empty-state text-center py-4">
+                                                <i class="fas fa-folder-open text-muted mb-2" style="font-size: 2rem; opacity: 0.5;"></i>
+                                                <p class="text-muted mb-0">No materials available</p>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <div class="workbook-section">
+                                    <h6 class="section-title mb-3">
+                                        <i class="fas fa-clipboard-check me-2 text-success"></i>
+                                        Exercise Details
+                                    </h6>
+                                    <t t-if="props.exercise">
+                                        <div class="exercise-details">
+                                            <div class="detail-item mb-3">
+                                                <label class="detail-label">Exercise Name:</label>
+                                                <span class="detail-value" t-esc="props.exercise.name"></span>
+                                            </div>
+                                            <div class="detail-item mb-3" t-if="props.exercise.description">
+                                                <label class="detail-label">Description:</label>
+                                                <span class="detail-value" t-esc="props.exercise.description"></span>
+                                            </div>
+                                            <div class="detail-item mb-3">
+                                                <label class="detail-label">Status:</label>
+                                                <span class="badge ms-2" 
+                                                      t-attf-class="badge {{ props.exercise.status === 'Completed' ? 'bg-success' : props.exercise.status === 'In Progress' ? 'bg-warning' : 'bg-secondary' }}">
+                                                    <t t-esc="props.exercise.status or 'Pending'"/>
+                                                </span>
+                                            </div>
+                                            <div class="detail-item mb-3" t-if="props.exercise.result_exercise and props.exercise.result_exercise.score">
+                                                <label class="detail-label">Score:</label>
+                                                <span class="badge bg-primary ms-2" t-esc="props.exercise.result_exercise.score"></span>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="empty-state text-center py-4">
+                                            <i class="fas fa-clipboard text-muted mb-2" style="font-size: 2rem; opacity: 0.5;"></i>
+                                            <p class="text-muted mb-0">No exercise assigned</p>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" t-if="props.exercise and props.exercise.result_exercise and props.exercise.result_exercise.url_images and props.exercise.result_exercise.url_images.length > 0">
+                            <div class="col-12">
+                                <div class="workbook-section">
+                                    <h6 class="section-title mb-3">
+                                        <i class="fas fa-images me-2 text-info"></i>
+                                        Exercise Results &amp; Attachments
+                                    </h6>
+                                    <div class="attachments-gallery row">
+                                        <t t-foreach="props.exercise.result_exercise.url_images" t-as="image_url" t-key="image_url_index">
+                                            <div class="col-md-4 col-sm-6 mb-3">
+                                                <div class="attachment-card">
+                                                    <div class="image-container">
+                                                        <img t-att-src="image_url" 
+                                                             alt="Exercise result attachment" 
+                                                             class="attachment-image" 
+                                                             loading="lazy"/>
+                                                    </div>
+                                                    <div class="attachment-footer">
+                                                        <small class="text-muted">
+                                                            Result <t t-esc="image_url_index + 1"/>
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div t-if="(!props.attached_materials or props.attached_materials.length === 0) and !props.exercise" 
+                             class="empty-state-main text-center py-5">
+                            <i class="fas fa-book-open text-muted mb-3" style="font-size: 3rem; opacity: 0.3;"></i>
+                            <h6 class="text-muted mb-2">No Workbook Content</h6>
+                            <p class="text-muted small mb-0">No materials or exercises have been assigned yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
+
+
+

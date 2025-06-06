@@ -1,0 +1,61 @@
+<templates xml:space="preserve">
+    <t t-name="doctor.overview" owl="1">
+        <div class="overview-container">
+            <div t-if="state.isLoading" class="text-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading treatment plan...</p>
+            </div>
+
+            <div t-if="state.error" class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <t t-esc="state.error"/>
+            </div>
+
+            <div t-if="!state.isLoading and !state.error and state.treatmentData" class="overview-content">
+                <div class="timeline-container">
+
+                    <t t-foreach="this.state.treatment_plans" t-as="treatment_plan" t-key="treatment_plan.id">
+
+                        <div class="timeline-item">
+                            <span t-attf-class="timeline-dot {{ treatment_plan.module_status.toLowerCase() === 'completed' ? 'completed' : treatment_plan.module_status.toLowerCase() === 'cancelled' ? 'cancelled' : 'not-started' }}"></span>
+                            <div class="card shadow-sm mb-4">
+                                <div t-attf-class="card-header d-flex justify-content-between align-items-center {{ treatment_plan.module_status.toLowerCase() === 'completed' ? 'bg-success-subtle' : treatment_plan.module_status.toLowerCase() === 'cancelled' ? 'bg-danger-subtle' : 'bg-warning-subtle' }}" 
+                                     t-attf-id="treatmentHeader{{ treatment_plan.id }}" 
+                                     data-bs-toggle="collapse" 
+                                     t-attf-data-bs-target="#treatmentContent{{ treatment_plan.id }}" 
+                                     aria-expanded="false" 
+                                     t-attf-aria-controls="treatmentContent{{ treatment_plan.id }}" 
+                                     style="cursor: pointer;">
+                                    <h5 class="mb-0">
+                                        <span class="text-black d-flex align-items-center fs-5">
+                                            <span t-esc="treatment_plan.name"></span>
+                                        </span>
+                                    </h5>
+                                    <span t-attf-class="badge text-white fs-6 {{ treatment_plan.module_status.toLowerCase() === 'completed' ? 'bg-success' : treatment_plan.module_status.toLowerCase() === 'cancelled' ? 'bg-danger' : 'bg-warning' }}" 
+                                          t-esc="treatment_plan.module_status"></span>
+                                </div>
+                                <div t-attf-id="treatmentContent{{ treatment_plan.id }}" 
+                                     class="collapse" 
+                                     t-attf-aria-labelledby="treatmentHeader{{ treatment_plan.id }}">
+                                    <div class="card-body">
+                                        <p><strong>Description:</strong> <span t-esc="treatment_plan.description"></span></p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p><strong>Start Date:</strong> <span t-esc="treatment_plan.start_date"></span></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><strong>End Date:</strong> <span t-esc="treatment_plan.end_date"></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -15,6 +15,18 @@ export class Task extends Component {
     });
   }
 
+  getStatusBadgeClass(status) {
+  const statusClasses = {
+    'Not Started': 'bg-secondary',
+    'In Progress': 'bg-info',
+    'Completed': 'bg-success',
+    'Skipped': 'bg-warning',
+    'Failed': 'bg-danger',
+    'Needs Review': 'bg-primary',
+  };
+  return statusClasses[status] || 'bg-secondary';
+}
+
   toggleCommentForm() {
     this.state.showCommentForm = !this.state.showCommentForm;
     if (!this.state.showCommentForm) {

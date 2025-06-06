@@ -3,9 +3,12 @@ import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
 import { Tasks } from "./tasks/tasks";
 import { CurrentSession } from "./currentSession/currentSession";
+import { SessionHistory } from "../sessionHistory/sessionHistory";
+import { Overview } from "./treatmentPlan/overview/overview";
+
 export class DoctorTabs extends Component {
     static template = "doctor.tabs";    
-    static components = { Tasks, CurrentSession }; 
+    static components = { Tasks, CurrentSession, SessionHistory, Overview }; 
     setup() {
 
         console.log("DoctorTabs component initialized");
@@ -15,7 +18,8 @@ export class DoctorTabs extends Component {
             activeHorizontalTab: 'treatment',  
             
             activeTreatmentTab: 'modules',  
-            activeHistoryTab: 'medical', 
+            activeHistoryTab: 'medical',
+            activeTreatmentPlanTab: 'overview',
             
             partner: null,
             isLoading: false,
@@ -30,24 +34,29 @@ export class DoctorTabs extends Component {
                 {
                     id: 'treatment',
                     label: 'Treatment',
-                    icon: 'fas fa-stethoscope'
                 },
                 {
                     id: 'history',
-                    label: 'Patient History',
-                    icon: 'fas fa-history'
+                    label: 'Diagnostic',
+                },
+                {
+                    id: 'treatmentPlan',
+                    label: 'Treatment Plan',
                 }
             ],
             vertical: {
                 treatment: [
-                    { id: 'modules', label: 'Current session', icon: 'fas fa-puzzle-piece' },
-                    { id: 'sessions', label: 'Tasks', icon: 'fas fa-calendar-check' },
-                    { id: 'materials', label: 'Session history', icon: 'fas fa-book' }
+                    { id: 'modules', label: 'Current session' },
+                    { id: 'sessions', label: 'Tasks' },
+                    { id: 'materials', label: 'Session history' }
                 ],
                 history: [
-                    { id: 'medical', label: 'Medical Records', icon: 'fas fa-file-medical' },
-                    { id: 'appointments', label: 'Appointments', icon: 'fas fa-calendar-alt' },
-                    { id: 'documents', label: 'Documents', icon: 'fas fa-folder-open' }
+                    { id: 'medical', label: 'Medical Records' },
+                    { id: 'appointments', label: 'Appointments' },
+                    { id: 'documents', label: 'Documents' },
+                ],
+                treatmentPlan: [
+                    { id: 'overview', label: 'Overview' }
                 ]
             }
         };
@@ -73,10 +82,19 @@ export class DoctorTabs extends Component {
         this.state.activeHistoryTab = tabId;
     }
 
+    setActiveTreatmentPlanTab(tabId) {
+        this.state.activeTreatmentPlanTab = tabId;
+    }
+
     get activeVerticalTab() {
-        return this.state.activeHorizontalTab === 'treatment' 
-            ? this.state.activeTreatmentTab 
-            : this.state.activeHistoryTab;
+        if (this.state.activeHorizontalTab === 'treatment') {
+            return this.state.activeTreatmentTab;
+        } else if (this.state.activeHorizontalTab === 'history') {
+            return this.state.activeHistoryTab;
+        } else if (this.state.activeHorizontalTab === 'treatmentPlan') {
+            return this.state.activeTreatmentPlanTab;
+        }
+        return null;
     }
 
     get currentVerticalTabs() {

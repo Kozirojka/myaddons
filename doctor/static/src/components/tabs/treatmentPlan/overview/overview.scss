@@ -1,0 +1,290 @@
+.overview-container {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.overview-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.patient-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.patient-header h2 {
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+}
+
+.patient-header h4 {
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.card {
+    border-radius: 12px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.card-title {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.progress {
+    border-radius: 10px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    border-radius: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.6s ease;
+}
+
+.treatment-goal-item {
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+.treatment-goal-item:hover {
+    border-color: #007bff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,123,255,0.1);
+}
+
+.goal-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+    color: #495057;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 0.75rem;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0,123,255,0.05);
+}
+
+.badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+}
+
+.text-primary {
+    color: #007bff !important;
+}
+
+.text-info {
+    color: #17a2b8 !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.border-start {
+    border-left: 4px solid !important;
+}
+
+.border-primary {
+    border-color: #007bff !important;
+}
+
+.fs-4 {
+    font-size: 1.5rem !important;
+}
+
+.fs-5 {
+    font-size: 1.25rem !important;
+}
+
+.fs-6 {
+    font-size: 1rem !important;
+}
+
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+.fw-semibold {
+    font-weight: 600 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .overview-container {
+        padding: 0.5rem;
+    }
+    
+    .patient-header {
+        padding: 1.5rem;
+    }
+    
+    .patient-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .patient-header h4 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Loading spinner styling */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Alert styling */
+.alert {
+    border-radius: 8px;
+    border: none;
+    font-weight: 500;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Animation for progress bar */
+@keyframes progressAnimation {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: var(--progress-width);
+    }
+}
+
+.progress-bar {
+    animation: progressAnimation 1s ease-out;
+}
+
+/* Card shadow variations */
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+/* Background gradient for patient header */
+.patient-header {
+    position: relative;
+    overflow: hidden;
+}
+
+.patient-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    pointer-events: none;
+}
+
+ .timeline-container {
+        position: relative;
+        margin-left: 40px;
+        padding-left: 30px;
+        border-left: 3px solid #e0e0e0;
+    }
+.timeline-item {
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+.timeline-dot {
+        position: absolute;
+        left: -40px;
+        top: 24px;
+        width: 18px;
+        height: 18px;
+        background: #fff;
+        border: 4px solid #7c7bad;
+        border-radius: 50%;
+        z-index: 2;
+        box-shadow: 0 0 0 2px #f8f9fa;
+        transition: border-color 0.2s;
+    }    .timeline-dot.completed {
+        background: #27ae60;
+        border-color: #27ae60;
+    }
+
+    .timeline-dot.cancelled {
+        background: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .timeline-dot.in-progress {
+        background: #ffc107;
+        border-color: #ffc107;
+    }
+
+    .timeline-dot.not-started {
+        background: #fff;
+        border-color: #adb5bd;
+    }
+
+    /* Optional: highlight current */
+    .timeline-dot.current {
+        box-shadow: 0 0 0 4px #7c7bad33;
+    }
+
+    @media (max-width: 600px) {
+        .timeline-container {
+            margin-left: 0;
+            padding-left: 15px;
+        }
+
+        .timeline-dot {
+            left: -28px;
+        }
+    }
