@@ -229,3 +229,62 @@
     background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
     pointer-events: none;
 }
+
+ .timeline-container {
+        position: relative;
+        margin-left: 40px;
+        padding-left: 30px;
+        border-left: 3px solid #e0e0e0;
+    }
+.timeline-item {
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+.timeline-dot {
+        position: absolute;
+        left: -40px;
+        top: 24px;
+        width: 18px;
+        height: 18px;
+        background: #fff;
+        border: 4px solid #7c7bad;
+        border-radius: 50%;
+        z-index: 2;
+        box-shadow: 0 0 0 2px #f8f9fa;
+        transition: border-color 0.2s;
+    }    .timeline-dot.completed {
+        background: #27ae60;
+        border-color: #27ae60;
+    }
+
+    .timeline-dot.cancelled {
+        background: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .timeline-dot.in-progress {
+        background: #ffc107;
+        border-color: #ffc107;
+    }
+
+    .timeline-dot.not-started {
+        background: #fff;
+        border-color: #adb5bd;
+    }
+
+    /* Optional: highlight current */
+    .timeline-dot.current {
+        box-shadow: 0 0 0 4px #7c7bad33;
+    }
+
+    @media (max-width: 600px) {
+        .timeline-container {
+            margin-left: 0;
+            padding-left: 15px;
+        }
+
+        .timeline-dot {
+            left: -28px;
+        }
+    }

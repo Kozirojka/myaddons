@@ -164,5 +164,35 @@ class DoctorWebsite(http.Controller):
             })
 
         return {'sessions': session_data}
-            
+
+    @http.route('/doctor/patient/<int:id>/treatmetn-plan', type='json', auth="public", website=True)
+    def get_treatment_plan(self, id):
+        patient = request.env['patient'].sudo().browse(id)
+        if not patient:
+            return {'error': 'Patient not found'}
+        
+        treatment_plans = request.env['treatment.plan'].sudo().search([('patient_id', '=', patient.id)])
+        if not treatment_plans:
+            return {'error': 'No treatment plans found for this patient'}
+        
+        treatment_plan_data = []
+
+        modules = request.env['treatment.module'].sudo().search([
+            ('treatment_plan_id', '=', treatment_plans.id)
+        ], order='create_date asc')
+
+        for module in modules:
+            treatment_plan_data.append({
+                'id': module.id,
+                'name': module.name,
+                'description': module.description or '',
+                'module_status': module.status_id.name if module.status_id else 'Draft',
+                'start_date': module.start_date.strftime('%Y-%m-%d') if module.start_date else False,
+                'end_date': module.end_date.strftime('%Y-%m-%d') if module.end_date else False,
+                'description': module.description or '',
+            })
+
+         
+        
+        return {'treatment_plans': treatment_plan_data}   
     

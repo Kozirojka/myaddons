@@ -1,4 +1,4 @@
-import { Component, useState } from "@odoo/owl";
+import { Component, useState, onWillStart } from "@odoo/owl";
 import { rpc } from "@web/core/network/rpc";
 
 export class Overview extends Component {
@@ -6,23 +6,24 @@ export class Overview extends Component {
 
     setup() {
         console.log("Overview component initialized");
-        
-        this.state = useState({
+          this.state = useState({
             treatmentData: null,
+            treatment_plans: [],
             isLoading: false,
             error: null
         });
         
-        this.loadTreatmentPlan();
+        onWillStart(async () => {
+            await this.loadTreatmentPlan();
+        });
+        
     }
 
     getPatientIdFromUrl() {
         const path = window.location.pathname;
         const match = path.match(/\/doctor\/patient\/(\d+)\/treatment/);
         return match ? parseInt(match[1]) : null;
-    }
-
-    async loadTreatmentPlan() {
+    }    async loadTreatmentPlan() {
         const patientId = this.getPatientIdFromUrl();
         if (!patientId) {
             this.state.error = "Patient ID not found in URL";
@@ -32,7 +33,19 @@ export class Overview extends Component {
         this.state.isLoading = true;
         this.state.error = null;
 
-        console.log("Loading treatment plan for patient ID:", patientId);
+        try {
+            const treatmentData = await rpc(`/doctor/patient/${patientId}/treatmetn-plan`);
+            
+            this.state.treatmentData = treatmentData;
+            this.state.treatment_plans = treatmentData.treatment_plans || [];
+
+            console.log("Loading treatment plan", treatmentData);
+        } catch (error) {
+            console.error("Error loading treatment plan:", error);
+            this.state.error = "Failed to load treatment plan data.";
+        } finally {
+            this.state.isLoading = false;
+        }
     }
 
     formatDate(dateString) {
