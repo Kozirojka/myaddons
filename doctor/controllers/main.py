@@ -12,14 +12,30 @@ class DoctorWebsite(http.Controller):
     def get_patient_data(self, id):
 
         patient = request.env['patient'].sudo().browse(id)  
+        if not patient:
+            return {'error': 'Patient not found'}
+        
+        responsible_doctors = request.env['doctor'].sudo().search([
+            ('patient_ids', 'in', [patient.partner_id.id])
+        ])
+
 
         return {
             'partner': {
-                'id' : patient.partner_id.id,
+                'id': patient.partner_id.id,
                 'name': patient.partner_id.name,
                 'email': patient.partner_id.email,
                 'phone': patient.partner_id.phone,
                 'address': patient.partner_id.contact_address_complete,
+                'responsible_doctors': [
+                    {
+                        'id': doc.id,
+                        'employe_id': doc.employee_id.id,
+                        'employee_name': doc.employee_id.name,
+                        'specialization': doc.specialization_id.speacialization_name
+                    }
+                    for doc in responsible_doctors
+                ]
             }
         }
     

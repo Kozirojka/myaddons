@@ -38,11 +38,28 @@
                         </div>
                         
                         <div class="responsible-doctors">
-                        <p class="fw-bold">Responsible Doctors:</p>
-                        <p>
-                            <a href="https://odoo.proxy.abtollc.com/odoo/employees/7" class="doctor-link">Dr. Krystyna Ross</a> - Psychotherapist
-                        </p>
+                            <p class="fw-bold">Responsible Doctors:</p>
+
+                            <div class="mb-3">     
+                                <t t-if="!this.state.partner.responsible_doctors || this.state.partner.responsible_doctors.length === 0">
+                                    <div class="text-center py-4">
+                                        <h4 class="text-muted">There is no responsible doctors</h4>
+                                    </div>
+                                </t>
+
+                                <div t-else="" class="text-start mt-3">
+                                    <t t-foreach="this.state.partner.responsible_doctors" t-as="doctor" t-key="doctor.id">
+                                        <span class="me-3">
+                                            <a t-att-href="'https://odoo.proxy.abtollc.com/odoo/employees/' + doctor.employe_id" class="doctor-link">
+                                                <t t-esc="doctor.employee_name"/>
+                                            </a>
+                                            – <t t-esc="doctor.specialization"/>
+                                        </span>
+                                    </t>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
